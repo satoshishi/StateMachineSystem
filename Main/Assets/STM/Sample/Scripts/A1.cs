@@ -29,6 +29,9 @@ public class A1 : A
     public override void OnUpdate()
     {
         base.OnUpdate();
+
+        if(Input.GetKeyUp(KeyCode.A))
+            StateParameter.GetParameter<StateMachineSample>().UpdateState<A2>();
     }
 
     public override void OnExit()

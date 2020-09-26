@@ -6,8 +6,7 @@ using STM.Param;
 
 namespace STM.STN
 {
-    [Serializable]
-    public abstract class StateNodeBase : MonoBehaviour
+    public class StateNodeBase : MonoBehaviour
     {
         protected Transform RetentionItemsRoot
         {

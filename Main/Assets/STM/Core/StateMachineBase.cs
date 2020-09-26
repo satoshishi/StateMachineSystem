@@ -7,7 +7,7 @@ using STM.Param;
 
 namespace STM
 {
-    public class StateMachineBase<STATE_NODE> : MonoBehaviour where STATE_NODE : StateNodeBase
+    public class StateMachineBase<STATE_NODE> : StateParameter where STATE_NODE : StateNodeBase
     {
 
         [SerializeField]
@@ -54,6 +54,7 @@ namespace STM
                     paramManagerInstances.Add(instance.GetComponent<StateParameter>());
                 }
 
+                paramManagerInstances.Add(this.GetComponent<StateParameter>());
                 m_stateParameter.Initialize(paramManagerInstances);               
             }
 

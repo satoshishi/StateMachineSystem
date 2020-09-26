@@ -24,9 +24,6 @@ public class StateMachineSample : StateMachineBase<A>
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.A))
-            UpdateState<A1>();
-        if (Input.GetKeyUp(KeyCode.B))
-            UpdateState<A2>();
+        
     }
 }

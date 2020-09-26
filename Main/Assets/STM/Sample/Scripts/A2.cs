@@ -16,12 +16,15 @@ public class A2 : A
         base.OnEnter();
 
         Debug.Log(StateParameter.GetParameter<SampleParamManager>() // parameterのmanagerをとって
-            .Parameter.GetParameter<A1Parameter>().text); // そこから登録したパラメータ取得   
+            .Parameter.GetParameter<A1Parameter>().text); // そこから登録したパラメータ取得              
     }
 
     public override void OnUpdate()
     {
         base.OnUpdate();
+
+        if(Input.GetKeyUp(KeyCode.S))
+            StateParameter.GetParameter<StateMachineSample>().UpdateState<A1>();         
     }
 
     public override void OnExit()
