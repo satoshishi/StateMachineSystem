@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using Komatsu.State.STM;
+using STM.STN;
 
-namespace Komatsu.State.STN
+namespace STM.Core
 {
     public enum eStateNodeStatus
     {
@@ -19,7 +19,7 @@ namespace Komatsu.State.STN
     /// 登録されたアクションを実行する部分
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class StateNode<T> where T : struct, IConvertible
+    public class StateNodeCore<T> where T : StateNodeBase
     {
         // StateMachine
         /// <summary>
@@ -27,9 +27,9 @@ namespace Komatsu.State.STN
         /// </summary>
         /// <value></value>
         public T StateType { get; private set; }
-        private StateMachine<T> m_stateMachine;
+        private StateMachineCore<T> m_stateMachine;
 
-        public StateNode(T stateType, StateMachine<T> stateMachine)
+        public StateNodeCore(T stateType, StateMachineCore<T> stateMachine)
         {
             StateType = stateType;
             m_stateMachine = stateMachine;

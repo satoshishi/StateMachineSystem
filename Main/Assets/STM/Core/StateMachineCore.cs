@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using Komatsu.State.STN;
+using STM.STN;
 
-namespace Komatsu.State.STM
+namespace STM.Core
 {
-public sealed class StateMachine<T> where T : struct, IConvertible
+public sealed class StateMachineCore<T> where T : StateNodeBase
 {
     public class StateNodeDataItem
     {
         public T StateType;
-        public StateNode<T> StateNode;
+        public StateNodeCore<T> StateNode;
     }
     private List<StateNodeDataItem> m_stateNodeDataItems;
 
@@ -23,19 +23,21 @@ public sealed class StateMachine<T> where T : struct, IConvertible
     public delegate IEnumerator OnStateChange(T stateType, eStateNodeStatus stateStatus);
     public OnStateChange StateChangeEvent;
 
-    public StateMachine(OnStateChange eventStatusCallback, bool autoRegister = false)
+    public StateMachineCore(OnStateChange eventStatusCallback, bool autoRegister = false)
     {
         StateChangeEvent += eventStatusCallback;
         m_stateNodeDataItems = new List<StateNodeDataItem>();
+
+        //m_curState = defalutState;
         
         if (!autoRegister) return;
         foreach (var value in Enum.GetValues(typeof(T)))
         {
-            RegisterStateNode((T)value, new StateNode<T>((T)value, this));
+            RegisterStateNode((T)value, new StateNodeCore<T>((T)value, this));
         }
     }
 
-    ~StateMachine()
+    ~StateMachineCore()
     {
         foreach (var value in Enum.GetValues(typeof(T)))
         {
@@ -69,7 +71,7 @@ public sealed class StateMachine<T> where T : struct, IConvertible
     /// </summary>
     /// <param name="stateType"></param>
     /// <param name="stateNode"></param>
-    public void RegisterStateNode(T stateType, StateNode<T> stateNode)
+    public void RegisterStateNode(T stateType, StateNodeCore<T> stateNode)
     {
         StateNodeDataItem stateNodeDataItem = GetStateNode(stateType);
 
@@ -103,6 +105,14 @@ public sealed class StateMachine<T> where T : struct, IConvertible
     public IEnumerator StartStateMachine(T nextState)
     {
         m_nextState = nextState;
+
+        if(m_curState == null)
+        {
+            m_curState = m_nextState;            
+            //Enter
+            yield return GetStateNode(m_nextState).StateNode.StateEnter();            
+        }
+
         while (!m_isShuttingDown)
         {
             if (!m_curState.Equals(m_nextState))
