@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using STM.STN;
 using STM;
+using STM.DomainModel;
 
 /// <summary>
 /// state machineで管理するクラスを定義する
@@ -18,7 +19,7 @@ public class StateMachineSample : StateMachineBase<A>
     // Start is called before the first frame update
     void Start()
     {
-        Initialize<A1>();
+        Initialize<A1>(GetComponent<StateMachineDomainModel>());
     }
 
     // Update is called once per frame
