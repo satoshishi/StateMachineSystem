@@ -2,7 +2,67 @@
 
 <img width="651" alt="image" src="https://user-images.githubusercontent.com/20067832/94411874-0f750380-01b4-11eb-9070-5d014b986ddf.png">
 
-# 使い方
+# 使い方(エディタ)
+
+- まず、STMで管理するStateNodeの種類を示すStaeNodeBaseを作成する。
+  - ヘッダーからSTMEditor/Make StateNodeBaseを選択して、エディタを開く
+  - TemplateSettingに対象のScriptableObjectをアタッチする
+  - NodeBaseNameにスクリプトの名前を記述する
+  - pathボタンを押して、保存先を選択する
+  - Makeボタンでスクリプトが生成される。
+
+![a](https://user-images.githubusercontent.com/20067832/95744576-7f17e200-0cce-11eb-8a2f-b282fbc10f1c.gif)
+
+- 次に、STMで管理するStateNodeを作成する
+  - ヘッダーからSTMEditor/Make StateNodeを選択して、エディタを開く
+  - TemplateSettingに対象のScriptableObjectをアタッチする
+  - NodeNameにスクリプトの名前を記述する
+  - NodeBaseNameに上で作成したStateNodeBase名を選択する
+  - pathボタンを押して、保存先を選択する
+  - Makeボタンでスクリプトが生成される。
+  - TargetSTMSettingに対象のScriptableObjectをアタッチする
+  - PrefabNameに先ほど作成したスクリプトの名前を選択する
+  - pathボタンを押して、保存先を選択する
+  - Makeボタンでプレファブが生成される。
+  
+![b](https://user-images.githubusercontent.com/20067832/95744624-93f47580-0cce-11eb-82a1-52f071a2ad3c.gif)
+
+
+- 次に、StateMachineを作成する
+  - ヘッダーからSTMEditor/Make StateMachineを選択して、エディタを開く
+  - TemplateSettingに対象のScriptableObjectをアタッチする
+  - StateMachineNameにスクリプトの名前を記述する
+  - NodeBaseNameに上で作成したStateNodeBase名を選択する
+  - FirstNodeNameに最初に遷移させたいStateNodeのスクリプト名を選択する
+  - pathボタンを押して、保存先を選択する
+  - Makeボタンでスクリプトが生成される。
+  - TargetSTMSettingに対象のScriptableObjectをアタッチする
+  - PrefabNameに先ほど作成したスクリプトの名前を選択する
+  - pathボタンを押して、保存先を選択する
+  - Makeボタンでプレファブが生成される。
+
+![c](https://user-images.githubusercontent.com/20067832/95744714-bedec980-0cce-11eb-9b81-52685d3b68f2.gif)
+
+
+- 次に、ParamManagerを作成する
+  - ヘッダーからSTMEditor/Make ParamManagerを選択して、エディタを開く
+  - TemplateSettingに対象のScriptableObjectをアタッチする
+  - ParamManager Nameにスクリプトの名前を記述する
+  - ParamTypeにParameterに継承させるクラス名を記述する
+  - pathボタンを押して、保存先を選択する
+  - Makeボタンでスクリプトが生成される。
+  - TargetSTMSettingに対象のScriptableObjectをアタッチする
+  - PrefabNameに先ほど作成したスクリプトの名前を選択する
+  - pathボタンを押して、保存先を選択する
+  - Makeボタンでプレファブが生成される。
+
+![d](https://user-images.githubusercontent.com/20067832/95744792-e59d0000-0cce-11eb-9fea-06c890f97b7b.gif)
+
+- 上記で作成したStateMachineのプレファブをシーンに置いて実行すると、StateMachineが起動して、FirstStateNodeに選択したStateNodeスクリプトを実行する
+
+![e](https://user-images.githubusercontent.com/20067832/95744869-0c5b3680-0ccf-11eb-9c02-f6780736fb93.gif)
+
+# 使い方(手動)
 - サンプルのようなStateMachineになるスクリプトとサンプルの構造をしたプレファブを作成
   - Genericの型引数で持つクラスがStateMachineが管理するStateNodeの種類となる
 ``` c#
