@@ -1,4 +1,14 @@
-﻿using System.Collections;
+﻿/*
+ * SKENT-UnityFrameWork
+ *
+ * Copyright (c) 2020 satoshishi
+ *
+ * Released under the MIT license.
+ * see https://github.com/paupawsan/SKENT-UnityFrameWork
+ *
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
