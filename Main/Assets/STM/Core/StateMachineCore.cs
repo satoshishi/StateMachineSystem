@@ -144,7 +144,7 @@ namespace STM.Core
 
                 yield return null;
             }
-            // yield return GetStateNode(m_curState).StateNode.StateExit();
+             yield return GetStateNode(m_curState).StateNode.StateExit();
         }
 
         /// <summary>

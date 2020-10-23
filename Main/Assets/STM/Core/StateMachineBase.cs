@@ -148,5 +148,10 @@ namespace STM
             if (TryGetStateNode<NODE_TYPE>(out NODE_TYPE stn))
                 STMCore.MoveState(stn);
         }
+
+        public virtual void ShutdownSTM()
+        {
+            STMCore.Shutdown();                              
+        }
     }
 }
