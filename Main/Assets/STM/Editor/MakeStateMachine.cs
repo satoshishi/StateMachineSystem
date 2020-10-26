@@ -37,6 +37,12 @@ public class MakeStateMachine : STMEditor
             get;
             set;
         } = "";
+
+        public string NameSpace
+        {
+            get;
+            set;
+        } = "";
     }
 
     Info ScriptInfo
@@ -97,9 +103,9 @@ public class MakeStateMachine : STMEditor
     {
         //https://qiita.com/kyanberu/items/fb6e1f5adc7de491d852
         void fnMake(string path, string prefabName)
-        { 
+        {
             var splitedName = prefabName.Split('.');
-            prefabName = splitedName.Length <= 1 ? prefabName : splitedName[splitedName.Length - 1];  
+            prefabName = splitedName.Length <= 1 ? prefabName : splitedName[splitedName.Length - 1];
 
             if (IsContainsType(prefabName, out Type type))
             {
@@ -138,10 +144,10 @@ public class MakeStateMachine : STMEditor
 
     public override void MakeScriptEdit(GUIStyle style)
     {
-        void fnMake(string path, string nodeName, string nodeBaseName, string firstNodeName, string template)
+        void fnMake(string path, string nodeName, string nodeBaseName, string firstNodeName, string template, string nameSpace)
         {
             var filePath = path + "/" + nodeName + ".cs";
-            var code = template.Replace(@"#STM_NAME#", nodeName).Replace(@"#NODE_BASE#", nodeBaseName).Replace(@"#FIRST_NODE#", firstNodeName);
+            var code = template.Replace(@"#STM_NAME#", nodeName).Replace(@"#NODE_BASE#", nodeBaseName).Replace(@"#FIRST_NODE#", firstNodeName).Replace(@"#NAME_SPACE#", nameSpace);
             File.WriteAllText(filePath, code);
             AssetDatabase.Refresh();
         }
@@ -153,6 +159,7 @@ public class MakeStateMachine : STMEditor
         ScriptInfo.StateMachineName = EditorGUILayout.TextField("StateMachine Name", ScriptInfo.StateMachineName);
         ScriptInfo.NodeBaseNameIndex = EditorGUILayout.Popup("NodeBase Name", ScriptInfo.NodeBaseNameIndex, ScriptTypes);
         ScriptInfo.FirstNodeNameIndex = EditorGUILayout.Popup("FristNode Name", ScriptInfo.FirstNodeNameIndex, ScriptTypes);
+        ScriptInfo.NameSpace = EditorGUILayout.TextField("Name Space", ScriptInfo.NameSpace);
 
         if (GUILayout.Button("Path"))
             ScriptInfo.FilePath = EditorUtility.OpenFolderPanel("Choice StateNode Script Path", Application.dataPath, string.Empty);
@@ -161,7 +168,7 @@ public class MakeStateMachine : STMEditor
         if (GUILayout.Button("Make"))
         {
             if (!string.IsNullOrEmpty(ScriptInfo.FilePath) && !ScriptInfo.StateMachineName.Equals("") && Format != null && !Format.Script.Equals(""))
-                fnMake(ScriptInfo.FilePath, ScriptInfo.StateMachineName, ScriptTypes[ScriptInfo.NodeBaseNameIndex] , ScriptTypes[ScriptInfo.FirstNodeNameIndex], Format.Script);
+                fnMake(ScriptInfo.FilePath, ScriptInfo.StateMachineName, ScriptTypes[ScriptInfo.NodeBaseNameIndex], ScriptTypes[ScriptInfo.FirstNodeNameIndex], Format.Script, ScriptInfo.NameSpace);
         }
     }
 

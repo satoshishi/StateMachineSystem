@@ -22,11 +22,17 @@ public class MakeStateNodeBase : STMEditor
         set;
     } = "";
 
+    public string NameSpace
+    {
+        get;
+        set;
+    } = "";
+
     public string FilePath
     {
         get;
         set;
-    } = "";    
+    } = "";
 
     [MenuItem("STM Editor/Make StateNodeBase")]
     private static void Create()
@@ -41,20 +47,21 @@ public class MakeStateNodeBase : STMEditor
         state.textColor = Color.white;
         style.normal = state;
 
-        MakeScriptEdit(style);        
+        MakeScriptEdit(style);
     }
     public override void MakeScriptEdit(GUIStyle style)
     {
-        void fnMake(string path, string nodeBaseName, string template)
+        void fnMake(string path, string nodeBaseName, string template, string nameSpace)
         {
             var filePath = path + "/" + nodeBaseName + ".cs";
-            var code = template.Replace(@"#NODE_BASE#", nodeBaseName);
+            var code = template.Replace(@"#NODE_BASE#", nodeBaseName).Replace(@"#NAME_SPACE#", nameSpace);
             File.WriteAllText(filePath, code);
             AssetDatabase.Refresh();
         }
 
         Format = EditorGUILayout.ObjectField("TemplateSettings", Format, typeof(TemplateSetting), true) as TemplateSetting;
         NodeBaseName = EditorGUILayout.TextField("NodeBase Name", NodeBaseName);
+        NameSpace = EditorGUILayout.TextField("Name Space", NameSpace);
 
         if (GUILayout.Button("Path"))
             FilePath = EditorUtility.OpenFolderPanel("Choice StateNode Script Path", Application.dataPath, string.Empty);
@@ -63,8 +70,7 @@ public class MakeStateNodeBase : STMEditor
         if (GUILayout.Button("Make"))
         {
             if (!string.IsNullOrEmpty(FilePath) && !NodeBaseName.Equals("") && Format != null && !Format.Script.Equals(""))
-                fnMake(FilePath, NodeBaseName, Format.Script);
-        }        
+                fnMake(FilePath, NodeBaseName, Format.Script, NameSpace);
+        }
     }
-
 }

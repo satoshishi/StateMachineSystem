@@ -12,17 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df230766b04d242fea77aed6838584c7, type: 3}
   m_Name: StateNodeBaseTempSample
   m_EditorClassIdentifier: 
-  Script: 'using System.Collections;
-
-    using System.Collections.Generic;
-
-    using
-    UnityEngine;
-
-    using STM.STN;
-
-    using STM;
-
-
-    public class #NODE_BASE#
-    : StateNodeBase { }'
+  Script: "using System.Collections;\nusing System.Collections.Generic;\nusing UnityEngine;\nusing
+    STM.STN;\nusing STM;\n\nnamespace #NAME_SPACE#\n{\n    public class #NODE_BASE#
+    : StateNodeBase { }\n}"

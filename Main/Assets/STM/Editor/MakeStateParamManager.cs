@@ -38,6 +38,12 @@ public class MakeStateParamManager : STMEditor
             get;
             set;
         } = 0;
+
+        public string NameSpace
+        {
+            get;
+            set;
+        } = "";
     }
 
     Info ScriptInfo
@@ -132,17 +138,17 @@ public class MakeStateParamManager : STMEditor
         {
             if (!string.IsNullOrEmpty(PrefabInfo.FilePath))
             {
-                fnMake(PrefabInfo.FilePath,ScriptTypes[PrefabInfo.TypeIndex]);
+                fnMake(PrefabInfo.FilePath, ScriptTypes[PrefabInfo.TypeIndex]);
             }
         }
     }
 
     public override void MakeScriptEdit(GUIStyle style)
     {
-        void fnMake(string path, string paramName, string paramTypeName, string template)
+        void fnMake(string path, string paramName, string paramTypeName, string template, string nameSpace)
         {
             var filePath = path + "/" + paramName + ".cs";
-            var code = template.Replace(@"#PARAM_NAME#", paramName).Replace(@"#PARAM_TYPE#", paramTypeName);
+            var code = template.Replace(@"#PARAM_NAME#", paramName).Replace(@"#PARAM_TYPE#", paramTypeName).Replace(@"#NAME_SPACE#", nameSpace);
             File.WriteAllText(filePath, code);
             AssetDatabase.Refresh();
         }
@@ -153,6 +159,7 @@ public class MakeStateParamManager : STMEditor
 
         ScriptInfo.ParamManagerName = EditorGUILayout.TextField("ParamManager Name", ScriptInfo.ParamManagerName);
         ScriptInfo.ParamTypeName = EditorGUILayout.TextField("ParamType Name", ScriptInfo.ParamTypeName);
+        ScriptInfo.NameSpace = EditorGUILayout.TextField("Name Space", ScriptInfo.NameSpace);
 
         if (GUILayout.Button("Path"))
             ScriptInfo.FilePath = EditorUtility.OpenFolderPanel("Choice StateNode Script Path", Application.dataPath, string.Empty);
@@ -162,7 +169,7 @@ public class MakeStateParamManager : STMEditor
         {
             if (!string.IsNullOrEmpty(ScriptInfo.FilePath) && !ScriptInfo.ParamManagerName.Equals("") && !ScriptInfo.ParamTypeName.Equals("") && Format != null && !Format.Script.Equals(""))
             {
-                fnMake(ScriptInfo.FilePath, ScriptInfo.ParamManagerName, ScriptInfo.ParamTypeName, Format.Script);
+                fnMake(ScriptInfo.FilePath, ScriptInfo.ParamManagerName, ScriptInfo.ParamTypeName, Format.Script, ScriptInfo.NameSpace);
             }
         }
     }

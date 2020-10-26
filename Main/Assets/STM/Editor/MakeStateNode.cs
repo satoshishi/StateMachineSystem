@@ -36,6 +36,12 @@ public class MakeStateNode : STMEditor
             get;
             set;
         } = 0;
+
+        public string NameSpace
+        {
+            get;
+            set;
+        } = "";
     }
 
     Info ScriptInfo
@@ -75,7 +81,7 @@ public class MakeStateNode : STMEditor
         state.textColor = Color.white;
         style.normal = state;
 
-        RefreshScirptTypes();        
+        RefreshScirptTypes();
 
         EditorGUILayout.Space();
         EditorGUILayout.Space();
@@ -98,8 +104,8 @@ public class MakeStateNode : STMEditor
         void fnMake(string path, string prefabName)
         {
             var splitedName = prefabName.Split('.');
-            prefabName = splitedName.Length <= 1 ? prefabName : splitedName[splitedName.Length - 1];  
-                      
+            prefabName = splitedName.Length <= 1 ? prefabName : splitedName[splitedName.Length - 1];
+
             if (IsContainsType(prefabName, out Type type))
             {
                 var obj = Resources.Load<GameObject>("StateNodeTemp");
@@ -131,10 +137,10 @@ public class MakeStateNode : STMEditor
         EditorGUILayout.LabelField(PrefabInfo.FilePath);
 
         if (GUILayout.Button("Make"))
-        {         
+        {
             if (!string.IsNullOrEmpty(PrefabInfo.FilePath))
             {
-                PrefabInfo.StateNodeName = ScriptTypes[PrefabInfo.TypeIndex];                   
+                PrefabInfo.StateNodeName = ScriptTypes[PrefabInfo.TypeIndex];
                 fnMake(PrefabInfo.FilePath, PrefabInfo.StateNodeName);
             }
         }
@@ -142,10 +148,10 @@ public class MakeStateNode : STMEditor
 
     public override void MakeScriptEdit(GUIStyle style)
     {
-        void fnMake(string path, string nodeName, string nodeBaseName, string template)
+        void fnMake(string path, string nodeName, string nodeBaseName, string template, string nameSpace)
         {
             var filePath = path + "/" + nodeName + ".cs";
-            var code = template.Replace(@"#NODE_NAME#", nodeName).Replace(@"#NODE_BASE#", nodeBaseName);
+            var code = template.Replace(@"#NODE_NAME#", nodeName).Replace(@"#NODE_BASE#", nodeBaseName).Replace(@"#NAME_SPACE#", nameSpace);
             File.WriteAllText(filePath, code);
             AssetDatabase.Refresh();
         }
@@ -155,6 +161,7 @@ public class MakeStateNode : STMEditor
         Format = EditorGUILayout.ObjectField("TemplateSettings", Format, typeof(TemplateSetting), true) as TemplateSetting;
 
         ScriptInfo.StateNodeName = EditorGUILayout.TextField("StateNode Name", ScriptInfo.StateNodeName);
+        ScriptInfo.NameSpace = EditorGUILayout.TextField("Name Space", ScriptInfo.NameSpace);
         ScriptInfo.TypeIndex = EditorGUILayout.Popup("NodeBase Name", ScriptInfo.TypeIndex, ScriptTypes);
 
         if (GUILayout.Button("Path"))
@@ -166,7 +173,7 @@ public class MakeStateNode : STMEditor
             if (!string.IsNullOrEmpty(ScriptInfo.FilePath) && !ScriptInfo.StateNodeName.Equals("") && Format != null && !Format.Script.Equals(""))
             {
                 var nodeBaseName = ScriptTypes[ScriptInfo.TypeIndex];
-                fnMake(ScriptInfo.FilePath, ScriptInfo.StateNodeName, nodeBaseName, Format.Script);
+                fnMake(ScriptInfo.FilePath, ScriptInfo.StateNodeName, nodeBaseName, Format.Script, ScriptInfo.NameSpace);
             }
         }
     }
