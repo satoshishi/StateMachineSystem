@@ -13,26 +13,29 @@ MonoBehaviour:
   m_Name: PrefabParamManagerTempSample
   m_EditorClassIdentifier: 
   Script: "using System.Collections;\nusing System.Collections.Generic;\nusing UnityEngine;\nusing
-    STM.Param;\n\npublic class #PARAM_TYPE# : MonoBehaviour,IMangeParameter { }\n\npublic
-    class #PARAM_NAME# : StateParameter\n{\n    public Manager Parameter\n    {\n       
-    get;\n        private set;\n    } = null;\n\n    [SerializeField]\n    private
-    List<#PARAM_TYPE#> m_prefabs;\n\n    [SerializeField]\n    private Transform
-    m_root;\n\n    private void Awake()\n    {\n        Parameter = transform.gameObject.AddComponent<Manager>();\n       
-    Parameter.Initialize(m_prefabs,m_root);\n    }\n\n    public class Manager :
-    ParamManagerBase<#PARAM_TYPE#>\n    {\n        public List<#PARAM_TYPE#> CreatedParams
-    \n        {\n            get;\n            set;\n        } = new List<#PARAM_TYPE#>();\n\n       
-    public Transform ParamsRoot\n        {\n            get;\n            set;\n       
-    } = null;\n\n        public void Initialize(List<#PARAM_TYPE#> prefabs,Transform
-    root) \n        {\n            Parameters = prefabs;\n            ParamsRoot
-    = root;\n        }\n\n        public override void UnRegister<PARAMETER>(PARAMETER
-    parameter)\n        {\n            int index = CreatedParams.FindIndex(param
-    => param is PARAMETER);\n\n            if (index >= 0)\n            {\n               
-    var target = CreatedParams[index].gameObject;\n                GameObject.Destroy(target);\n               
-    CreatedParams.RemoveAt(index);\n            }\n        }\n\n        public PARAMETER
-    Create<PARAMETER>() where PARAMETER : #PARAM_TYPE#\n        {\n            var
-    ui = (Parameters.Find(param => param is PARAMETER));\n            var createdUI
-    = (CreatedParams.Find(param => param is PARAMETER));\n\n            if(createdUI
-    != null)\n                return (PARAMETER)createdUI;\n            else if (ui
-    != null)\n            {\n                var newUI = Instantiate(ui.gameObject,ParamsRoot).GetComponent<#PARAM_TYPE#>();\n               
-    CreatedParams.Add(newUI);\n\n                return (PARAMETER)newUI;\n           
-    }\n\n            return default;\n        }\n    }\n}\n"
+    STM.Param;\n\nnamespace  #NAMME_SPACE#\n{\n\n    public class #PARAM_TYPE# :
+    MonoBehaviour,IMangeParameter { }\n\n    public class #PARAM_NAME# : StateParameter\n   
+    {\n        public Manager Parameter\n        {\n            get;\n           
+    private set;\n        } = null;\n\n        [SerializeField]\n        private
+    List<#PARAM_TYPE#> m_prefabs;\n\n        [SerializeField]\n        private Transform
+    m_root;\n\n        private void Awake()\n        {\n            Parameter = transform.gameObject.AddComponent<Manager>();\n           
+    Parameter.Initialize(m_prefabs, m_root);\n        }\n\n        public class Manager
+    : ParamManagerBase<#PARAM_TYPE#>\n        {\n            public List<#PARAM_TYPE#>
+    CreatedParams \n            {\n                get;\n                set;\n           
+    } = new List<#PARAM_TYPE#>();\n\n            public Transform ParamsRoot\n           
+    {\n                get;\n                set;\n            } = null;\n\n           
+    public void Initialize(List<#PARAM_TYPE#> prefabs,Transform root) \n           
+    {\n                Parameters = prefabs;\n                ParamsRoot = root;\n           
+    }\n\n            public override void UnRegister<PARAMETER>(PARAMETER parameter)\n           
+    {\n                int index = CreatedParams.FindIndex(param => param is PARAMETER);\n\n               
+    if (index >= 0)\n                {\n                    var target = CreatedParams[index].gameObject;\n                   
+    GameObject.Destroy(target);\n                    CreatedParams.RemoveAt(index);\n               
+    }\n            }\n\n            public PARAMETER Create<PARAMETER>() where PARAMETER
+    : #PARAM_TYPE#\n            {\n                var ui = (Parameters.Find(param
+    => param is PARAMETER));\n                var createdUI = (CreatedParams.Find(param
+    => param is PARAMETER));\n\n                if (createdUI != null)\n                   
+    return (PARAMETER)createdUI;\n                else if (ui != null)\n               
+    {\n                    var newUI = Instantiate(ui.gameObject, ParamsRoot).GetComponent
+    <#PARAM_TYPE#>();\n                    CreatedParams.Add(newUI);\n\n                   
+    return (PARAMETER)newUI;\n                }\n\n                return default;\n           
+    }\n        }\n    }\n}"
