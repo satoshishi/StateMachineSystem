@@ -25,7 +25,7 @@ namespace STM.Param
             else Parameters.Add(parameter);
         }
 
-        public virtual void UnRegister<PARAMETER>(PARAMETER parameter) where PARAMETER : MANAGE_PARAMETER_TYPE
+        public virtual void UnRegister<PARAMETER>() where PARAMETER : MANAGE_PARAMETER_TYPE
         {
             int index = Parameters.FindIndex(param => param is PARAMETER);
 

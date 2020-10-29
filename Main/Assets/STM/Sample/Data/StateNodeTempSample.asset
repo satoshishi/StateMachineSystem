@@ -13,11 +13,10 @@ MonoBehaviour:
   m_Name: StateNodeTempSample
   m_EditorClassIdentifier: 
   Script: "using System.Collections;\nusing System.Collections.Generic;\nusing UnityEngine;\nusing
-    STM.STN;\nusing STM.Param;\n\nnamespace  #NAME_SPACE#\n{\n\n    public class
-    #NODE_NAME# : #NODE_BASE#\n    {\n        public override void Initialize(Transform
-    retentionItemsRoot, StateParamManager stateParameter)\n        {\n           
-    base.Initialize(retentionItemsRoot, stateParameter);\n        }\n\n        public
-    override void OnEnter()\n        {\n            base.OnEnter();\n        }\n\n       
-    public override void OnUpdate()\n        {\n            base.OnUpdate();\n       
-    }\n\n        public override void OnExit()\n        {\n            base.OnExit();\n       
-    }\n    }\n}"
+    STM.STN;\nusing STM.Param;\n\nnamespace #NAME_SPACE#\n{\n\n    public class #NODE_NAME#
+    : #NODE_BASE#\n    {\n        public override void Initialize(Transform retentionItemsRoot,
+    StateParamManager stateParameter)\n        {\n            base.Initialize(retentionItemsRoot,
+    stateParameter);\n        }\n\n        public override void OnEnter()\n       
+    {\n            base.OnEnter();\n        }\n\n        public override void OnUpdate()\n       
+    {\n            base.OnUpdate();\n        }\n\n        public override void OnExit()\n       
+    {\n            base.OnExit();\n        }\n    }\n}"

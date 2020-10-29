@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: StateMachineTempSample
   m_EditorClassIdentifier: 
   Script: "using System.Collections;\nusing System.Collections.Generic;\nusing UnityEngine;\nusing
-    STM.STN;\nusing STM;\nusing STM.DomainModel;\n\nnamespace  #NAME_SPACE#\n{\n\n   
+    STM.STN;\nusing STM;\nusing STM.DomainModel;\n\nnamespace #NAME_SPACE#\n{\n\n   
     public class #STM_NAME# : StateMachineBase<#NODE_BASE#>\n    {\n        // Start
     is called before the first frame update\n        void Start()\n        {\n           
     Initialize <#FIRST_NODE#>(GetComponent<StateMachineDomainModel>());\n       
