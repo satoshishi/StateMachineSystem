@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ParamManagerTempSample
   m_EditorClassIdentifier: 
   Script: "using System.Collections;\nusing System.Collections.Generic;\nusing UnityEngine;\nusing
-    STM.Param;\n\nnamespace  #NAME_SPACE#\n{\n\n    public class #PARAM_TYPE# : IMangeParameter{}\n\n   
+    STM.Param;\n\nnamespace #NAME_SPACE#\n{\n\n    public class #PARAM_TYPE# : IMangeParameter{}\n\n   
     public class #PARAM_NAME# : StateParameter\n    {\n        public Manager Parameter\n       
     {\n            get;\n            private set;\n        } = null;\n\n        private
     void Awake()\n        {\n            Parameter =  transform.gameObject.AddComponent<Manager>();\n       
