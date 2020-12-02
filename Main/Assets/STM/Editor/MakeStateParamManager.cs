@@ -70,7 +70,7 @@ public class MakeStateParamManager : STMEditor
         set;
     } = null;
 
-    [MenuItem("STM Editor/Make StateParamManager")]
+    [MenuItem("Tools/STM Editor/Make StateParamManager")]
     private static void Create()
     {
         GetWindow<MakeStateParamManager>("Make StateParamManager");

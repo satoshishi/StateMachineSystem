@@ -68,7 +68,7 @@ public class MakeStateNode : STMEditor
         set;
     } = null;
 
-    [MenuItem("STM Editor/Make StateNode")]
+    [MenuItem("Tools/STM Editor/Make StateNode")]
     private static void Create()
     {
         GetWindow<MakeStateNode>("Make StateNode");

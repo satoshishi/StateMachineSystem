@@ -34,7 +34,7 @@ public class MakeStateNodeBase : STMEditor
         set;
     } = "";
 
-    [MenuItem("STM Editor/Make StateNodeBase")]
+    [MenuItem("Tools/STM Editor/Make StateNodeBase")]
     private static void Create()
     {
         GetWindow<MakeStateNodeBase>("Make StateNodeBase");
