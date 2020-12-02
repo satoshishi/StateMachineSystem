@@ -27,15 +27,15 @@ MonoBehaviour:
     public void Initialize(List<#PARAM_TYPE#> prefabs,Transform root) \n           
     {\n                Parameters = prefabs;\n                ParamsRoot = root;\n           
     }\n\n            public override void UnRegister<PARAMETER>()\n            {\n               
-    int index = CreatedParams.FindIndex(param => param is PARAMETER);\n\n               
+    int index = CreatedParams.FindIndex(param => typeof(PARAMETER) == param.GetType());\n\n               
     if (index >= 0)\n                {\n                    var target = CreatedParams[index].gameObject;\n                   
     GameObject.Destroy(target);\n                    CreatedParams.RemoveAt(index);\n               
     }\n            }\n\n            public PARAMETER Create<PARAMETER>() where PARAMETER
     : #PARAM_TYPE#\n            {\n                var ui = (Parameters.Find(param
-    => param is PARAMETER));\n                var createdUI = (CreatedParams.Find(param
-    => param is PARAMETER));\n\n                if (createdUI != null)\n                   
-    return (PARAMETER)createdUI;\n                else if (ui != null)\n               
-    {\n                    var newUI = Instantiate(ui.gameObject, ParamsRoot).GetComponent
-    <#PARAM_TYPE#>();\n                    CreatedParams.Add(newUI);\n\n                   
+    => typeof(PARAMETER) == param.GetType()));\n                var createdUI = (CreatedParams.Find(param
+    => typeof(PARAMETER) == param.GetType()));\n\n                if (createdUI !=
+    null)\n                    return (PARAMETER)createdUI;\n                else
+    if (ui != null)\n                {\n                    var newUI = Instantiate(ui.gameObject,
+    ParamsRoot).GetComponent <#PARAM_TYPE#>();\n                    CreatedParams.Add(newUI);\n\n                   
     return (PARAMETER)newUI;\n                }\n\n                return default;\n           
     }\n        }\n    }\n}"

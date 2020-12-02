@@ -69,7 +69,7 @@ public class MakeStateMachine : STMEditor
         set;
     } = null;
 
-    [MenuItem("STM Editor/Make StateMachine")]
+    [MenuItem("Tools/STM Editor/Make StateMachine")]
     private static void Create()
     {
         GetWindow<MakeStateMachine>("Make StateMachine");

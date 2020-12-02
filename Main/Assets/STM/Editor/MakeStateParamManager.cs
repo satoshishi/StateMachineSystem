@@ -70,7 +70,7 @@ public class MakeStateParamManager : STMEditor
         set;
     } = null;
 
-    [MenuItem("STM Editor/Make StateParamManager")]
+    [MenuItem("Tools/STM Editor/Make StateParamManager")]
     private static void Create()
     {
         GetWindow<MakeStateParamManager>("Make StateParamManager");
@@ -105,7 +105,9 @@ public class MakeStateParamManager : STMEditor
         //https://qiita.com/kyanberu/items/fb6e1f5adc7de491d852
         void fnMake(string path, string prefabName)
         {
-            var splitedName = prefabName.Split('.');            
+            var splitedName = prefabName.Split('.');
+            prefabName = splitedName.Length <= 1 ? prefabName : splitedName[splitedName.Length - 1];
+
             if (IsContainsType(prefabName, out Type type))
             {
                 var obj = Resources.Load<GameObject>("ParamManagerTemp");

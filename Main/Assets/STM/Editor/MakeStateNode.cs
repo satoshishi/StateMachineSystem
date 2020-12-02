@@ -56,7 +56,13 @@ public class MakeStateNode : STMEditor
         set;
     } = new Info();
 
-    TemplateSetting Format
+    TemplateSetting NodeFormat
+    {
+        get;
+        set;
+    } = null;
+
+    TemplateSetting ControllerFormat
     {
         get;
         set;
@@ -68,7 +74,7 @@ public class MakeStateNode : STMEditor
         set;
     } = null;
 
-    [MenuItem("STM Editor/Make StateNode")]
+    [MenuItem("Tools/STM Editor/Make StateNode")]
     private static void Create()
     {
         GetWindow<MakeStateNode>("Make StateNode");
@@ -148,17 +154,31 @@ public class MakeStateNode : STMEditor
 
     public override void MakeScriptEdit(GUIStyle style)
     {
-        void fnMake(string path, string nodeName, string nodeBaseName, string template, string nameSpace)
+        void fnMake(string path, string nodeName, string nodeBaseName, string nodeTemplate, string controllerTemplate, string nameSpace)
         {
-            var filePath = path + "/" + nodeName + ".cs";
-            var code = template.Replace(@"#NODE_NAME#", nodeName).Replace(@"#NODE_BASE#", nodeBaseName).Replace(@"#NAME_SPACE#", nameSpace);
-            File.WriteAllText(filePath, code);
+            #region make node script
+            var nodeFilePath = path + "/" + nodeName + ".cs";
+            var nodeCode = nodeTemplate.Replace(@"#NODE_NAME#", nodeName).Replace(@"#NODE_BASE#", nodeBaseName).Replace(@"#NAME_SPACE#", nameSpace);
+            File.WriteAllText(nodeFilePath, nodeCode);
+            #endregion
+
+            #region make controller script
+
+            if (!controllerTemplate.Equals(""))
+            {
+                var controllerFilePath = path + "/" + nodeName + ".Controller" + ".cs";
+                var controllerCode = controllerTemplate.Replace(@"#NODE_NAME#", nodeName).Replace(@"#NODE_BASE#", nodeBaseName).Replace(@"#NAME_SPACE#", nameSpace);
+                File.WriteAllText(controllerFilePath, controllerCode);
+            }
+            #endregion
+
             AssetDatabase.Refresh();
         }
 
         EditorGUILayout.LabelField("Make Script", style);
 
-        Format = EditorGUILayout.ObjectField("TemplateSettings", Format, typeof(TemplateSetting), true) as TemplateSetting;
+        NodeFormat = EditorGUILayout.ObjectField("NodeTemplateSettings", NodeFormat, typeof(TemplateSetting), true) as TemplateSetting;
+        ControllerFormat = EditorGUILayout.ObjectField("ControllerTemplateSettings", ControllerFormat, typeof(TemplateSetting), true) as TemplateSetting;
 
         ScriptInfo.StateNodeName = EditorGUILayout.TextField("StateNode Name", ScriptInfo.StateNodeName);
         ScriptInfo.NameSpace = EditorGUILayout.TextField("Name Space", ScriptInfo.NameSpace);
@@ -170,10 +190,15 @@ public class MakeStateNode : STMEditor
 
         if (GUILayout.Button("Make"))
         {
-            if (!string.IsNullOrEmpty(ScriptInfo.FilePath) && !ScriptInfo.StateNodeName.Equals("") && Format != null && !Format.Script.Equals(""))
+            if (!string.IsNullOrEmpty(ScriptInfo.FilePath) && !ScriptInfo.StateNodeName.Equals("") && NodeFormat != null && !NodeFormat.Script.Equals(""))
             {
                 var nodeBaseName = ScriptTypes[ScriptInfo.TypeIndex];
-                fnMake(ScriptInfo.FilePath, ScriptInfo.StateNodeName, nodeBaseName, Format.Script, ScriptInfo.NameSpace);
+                fnMake(
+                    ScriptInfo.FilePath,
+                    ScriptInfo.StateNodeName,
+                    nodeBaseName, NodeFormat.Script,
+                    ControllerFormat != null ? ControllerFormat.Script : "",
+                    ScriptInfo.NameSpace);
             }
         }
     }
