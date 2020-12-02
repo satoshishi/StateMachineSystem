@@ -12,11 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df230766b04d242fea77aed6838584c7, type: 3}
   m_Name: StateNodeTempSample
   m_EditorClassIdentifier: 
-  Script: "using System.Collections;\nusing System.Collections.Generic;\nusing UnityEngine;\nusing
-    STM.STN;\nusing STM.Param;\n\nnamespace #NAME_SPACE#\n{\n\n    public class #NODE_NAME#
-    : #NODE_BASE#\n    {\n        public override void Initialize(Transform retentionItemsRoot,
-    StateParamManager stateParameter)\n        {\n            base.Initialize(retentionItemsRoot,
-    stateParameter);\n        }\n\n        public override void OnEnter()\n       
-    {\n            base.OnEnter();\n        }\n\n        public override void OnUpdate()\n       
-    {\n            base.OnUpdate();\n        }\n\n        public override void OnExit()\n       
-    {\n            base.OnExit();\n        }\n    }\n}"
+  Script: "using System.Collections;\r\nusing System.Collections.Generic;\r\nusing
+    UnityEngine;\r\nusing STM.STN;\r\nusing STM.Param;\r\n\r\nnamespace #NAME_SPACE#\r\n{\r\n   
+    public partial class #NODE_NAME# : #NODE_BASE#\r\n    {\r\n        public override
+    void Initialize(Transform retentionItemsRoot, StateParamManager stateParameter)\r\n       
+    {\r\n            base.Initialize(retentionItemsRoot, stateParameter);\r\n       
+    }\r\n\r\n        public override void OnEnter()\r\n        {\r\n            base.OnEnter();\r\n\r\n           
+    /*InitializeController(\r\n                new ParameterData()\r\n               
+    {\r\n\r\n                });\r*/\n        }\n\r\n        public override void
+    OnUpdate()\r\n        {\r\n            base.OnUpdate();\r\n        }\r\n\r\n       
+    public override void OnExit()\r\n        {\r\n            base.OnExit();\r\n       
+    }\r\n    }\r\n}"
