@@ -15,11 +15,11 @@ MonoBehaviour:
   Script: "using System.Collections;\nusing System.Collections.Generic;\nusing UnityEngine;\nusing
     STM.Param;\n\nnamespace #NAME_SPACE#\n{\n\n    public class #PARAM_TYPE# : MonoBehaviour,IMangeParameter
     { }\n\n    public class #PARAM_NAME# : StateParameter\n    {\n        public
-    Manager Parameter\n        {\n            get;\n            private set;\n       
+    Manager Instance\n        {\n            get;\n            private set;\n       
     } = null;\n\n        [SerializeField]\n        private List<#PARAM_TYPE#> m_prefabs;\n\n       
     [SerializeField]\n        private Transform m_root;\n\n        private void Awake()\n       
-    {\n            Parameter = transform.gameObject.AddComponent<Manager>();\n           
-    Parameter.Initialize(m_prefabs, m_root);\n        }\n\n        public class Manager
+    {\n            Instance = transform.gameObject.AddComponent<Manager>();\n           
+    Instance.Initialize(m_prefabs, m_root);\n        }\n\n        public class Manager
     : ParamManagerBase<#PARAM_TYPE#>\n        {\n            public List<#PARAM_TYPE#>
     CreatedParams \n            {\n                get;\n                set;\n           
     } = new List<#PARAM_TYPE#>();\n\n            public Transform ParamsRoot\n           
@@ -31,16 +31,11 @@ MonoBehaviour:
     if (index >= 0)\n                {\n                    var target = CreatedParams[index].gameObject;\n                   
     GameObject.Destroy(target);\n                    CreatedParams.RemoveAt(index);\n               
     }\n            }\n\n            public PARAMETER Create<PARAMETER>() where PARAMETER
-    : #PARAM_TYPE#\n            {\n\n                var paramter_child = (PARAMETER)(Parameters.Find(param
-    => param is PARAMETER));\n                var parameter_parent = (PARAMETER)(Parameters.Find(param
-    => typeof(PARAMETER) == param.GetType()));\n                var parameter_res
-    = parameter_parent != null ? parameter_parent : paramter_child;\n\n               
-    var created_child = (PARAMETER)(CreatedParams.Find(param => param is PARAMETER));\n               
-    var created_parent = (PARAMETER)(CreatedParams.Find(param => typeof(PARAMETER)
-    == param.GetType()));\n                var created_res = created_child != null
-    ? created_child : created_parent;\n\n                if (created_res != null)\n                   
-    return (PARAMETER)created_res;\n                else if (parameter_res != null)\n               
-    {\n                    var newParameter = Instantiate(parameter_res.gameObject,
-    ParamsRoot).GetComponent <#PARAM_TYPE#>();\n                    CreatedParams.Add(newParameter);\n\n                   
-    return (PARAMETER)newParameter;\n                }\n\n                return
-    default;\n            }\n        }\n    }\n}"
+    : #PARAM_TYPE#\n            {\n                var parameter_res = (PARAMETER)(Parameters.Find(param
+    => typeof(PARAMETER) == param.GetType()));\n                var created_res =
+    (PARAMETER)(CreatedParams.Find(param => typeof(PARAMETER) == param.GetType()));\n\n               
+    if (created_res != null)\n                    return (PARAMETER)created_res;\n               
+    else if (parameter_res != null)\n                {\n                    var newParameter
+    = Instantiate(parameter_res.gameObject, ParamsRoot).GetComponent <#PARAM_TYPE#>();\n                   
+    CreatedParams.Add(newParameter);\n\n                    return (PARAMETER)newParameter;\n               
+    }\n\n                return default;\n            }\n        }\n    }\n}"

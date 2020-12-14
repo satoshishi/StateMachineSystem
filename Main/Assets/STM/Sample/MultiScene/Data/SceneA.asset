@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05246551a74cf45bbafd0c420b91aa7c, type: 3}
-  m_Name: Sample1
+  m_Name: SceneA
   m_EditorClassIdentifier: 
   StateNode:
-  - {fileID: 8653990355688186494, guid: 784bc86ab770c4d3d8d36b00c9e4fb7d, type: 3}
+  - {fileID: 5952104602459608146, guid: d2c812da3ec104535b96a174a754b469, type: 3}
   ParamManagers:
-  - {fileID: 8190583733433200693, guid: edfde0debe6fb4e5fbb67d03a798096c, type: 3}
+  - {fileID: 4792287004640528723, guid: c2e1aba9c61c54944963a075f6be2d7e, type: 3}

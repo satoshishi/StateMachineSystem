@@ -62,14 +62,8 @@ namespace Samples.Parameters.Prefabs
 
             public PARAMETER Create<PARAMETER>() where PARAMETER : Prefaber
             {
-
-                var paramter_child = (PARAMETER)(Parameters.Find(param => param is PARAMETER));
-                var parameter_parent = (PARAMETER)(Parameters.Find(param => typeof(PARAMETER) == param.GetType()));
-                var parameter_res = parameter_parent != null ? parameter_parent : paramter_child;
-
-                var created_child = (PARAMETER)(CreatedParams.Find(param => param is PARAMETER));
-                var created_parent = (PARAMETER)(CreatedParams.Find(param => typeof(PARAMETER) == param.GetType()));
-                var created_res = created_child != null ? created_child : created_parent;
+                var parameter_res = (PARAMETER)(Parameters.Find(param => typeof(PARAMETER) == param.GetType()));
+                var created_res = (PARAMETER)(CreatedParams.Find(param => typeof(PARAMETER) == param.GetType()));;
 
                 if (created_res != null)
                     return (PARAMETER)created_res;
