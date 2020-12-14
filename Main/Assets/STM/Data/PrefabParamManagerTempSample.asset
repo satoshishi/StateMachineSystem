@@ -31,11 +31,16 @@ MonoBehaviour:
     if (index >= 0)\n                {\n                    var target = CreatedParams[index].gameObject;\n                   
     GameObject.Destroy(target);\n                    CreatedParams.RemoveAt(index);\n               
     }\n            }\n\n            public PARAMETER Create<PARAMETER>() where PARAMETER
-    : #PARAM_TYPE#\n            {\n                var ui = (Parameters.Find(param
-    => typeof(PARAMETER) == param.GetType()));\n                var createdUI = (CreatedParams.Find(param
-    => typeof(PARAMETER) == param.GetType()));\n\n                if (createdUI !=
-    null)\n                    return (PARAMETER)createdUI;\n                else
-    if (ui != null)\n                {\n                    var newUI = Instantiate(ui.gameObject,
-    ParamsRoot).GetComponent <#PARAM_TYPE#>();\n                    CreatedParams.Add(newUI);\n\n                   
-    return (PARAMETER)newUI;\n                }\n\n                return default;\n           
-    }\n        }\n    }\n}"
+    : #PARAM_TYPE#\n            {\n\n                var paramter_child = (PARAMETER)(Parameters.Find(param
+    => param is PARAMETER));\n                var parameter_parent = (PARAMETER)(Parameters.Find(param
+    => typeof(PARAMETER) == param.GetType()));\n                var parameter_res
+    = parameter_parent != null ? parameter_parent : paramter_child;\n\n               
+    var created_child = (PARAMETER)(CreatedParams.Find(param => param is PARAMETER));\n               
+    var created_parent = (PARAMETER)(CreatedParams.Find(param => typeof(PARAMETER)
+    == param.GetType()));\n                var created_res = created_child != null
+    ? created_child : created_parent;\n\n                if (created_res != null)\n                   
+    return (PARAMETER)created_res;\n                else if (parameter_res != null)\n               
+    {\n                    var newParameter = Instantiate(parameter_res.gameObject,
+    ParamsRoot).GetComponent <#PARAM_TYPE#>();\n                    CreatedParams.Add(newParameter);\n\n                   
+    return (PARAMETER)newParameter;\n                }\n\n                return
+    default;\n            }\n        }\n    }\n}"
