@@ -49,7 +49,10 @@ namespace STM.Param
 
         public virtual PARAMETER GetParameter<PARAMETER>() where PARAMETER : MANAGE_PARAMETER_TYPE
         {
-            return (PARAMETER)(Parameters.Find(param => typeof(PARAMETER) == param.GetType()));
+            var paramter_child = (PARAMETER)(Parameters.Find(param => param is PARAMETER));
+            var parameter_parent = (PARAMETER)(Parameters.Find(param => typeof(PARAMETER) == param.GetType()));
+
+            return parameter_parent != null ? parameter_parent : paramter_child;
         }
     }
 
