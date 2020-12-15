@@ -15,4 +15,4 @@ MonoBehaviour:
   StateNode:
   - {fileID: 5952104602459608146, guid: d2c812da3ec104535b96a174a754b469, type: 3}
   ParamManagers:
-  - {fileID: 8190583733433200693, guid: edfde0debe6fb4e5fbb67d03a798096c, type: 3}
+  - {fileID: 2990631127655021171, guid: e6b706ddcbe21406c8dbb68d46b98494, type: 3}

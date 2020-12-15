@@ -27,15 +27,22 @@ MonoBehaviour:
     public void Initialize(List<#PARAM_TYPE#> prefabs,Transform root) \n           
     {\n                Parameters = prefabs;\n                ParamsRoot = root;\n           
     }\n\n            public override void UnRegister<PARAMETER>()\n            {\n               
-    int index = CreatedParams.FindIndex(param => typeof(PARAMETER) == param.GetType());\n\n               
-    if (index >= 0)\n                {\n                    var target = CreatedParams[index].gameObject;\n                   
+    int index_typeof = (CreatedParams.FindIndex(param => typeof(PARAMETER) == param.GetType()));\n               
+    int index_is = (CreatedParams.FindIndex(param => param is PARAMETER));\n               
+    int index = index_typeof >= 0 ? index_typeof : index_is;\n\n                if
+    (index >= 0)\n                {\n                    var target = CreatedParams[index].gameObject;\n                   
     GameObject.Destroy(target);\n                    CreatedParams.RemoveAt(index);\n               
     }\n            }\n\n            public PARAMETER Create<PARAMETER>() where PARAMETER
-    : #PARAM_TYPE#\n            {\n                var parameter_res = (PARAMETER)(Parameters.Find(param
-    => typeof(PARAMETER) == param.GetType()));\n                var created_res =
-    (PARAMETER)(CreatedParams.Find(param => typeof(PARAMETER) == param.GetType()));\n\n               
-    if (created_res != null)\n                    return (PARAMETER)created_res;\n               
-    else if (parameter_res != null)\n                {\n                    var newParameter
-    = Instantiate(parameter_res.gameObject, ParamsRoot).GetComponent <#PARAM_TYPE#>();\n                   
-    CreatedParams.Add(newParameter);\n\n                    return (PARAMETER)newParameter;\n               
-    }\n\n                return default;\n            }\n        }\n    }\n}"
+    : #PARAM_TYPE#\n            {\n                var parameter_typeof = (PARAMETER)(Parameters.Find(param
+    => typeof(PARAMETER) == param.GetType()));\n                var parameter_is
+    = (PARAMETER)(Parameters.Find(param => param is PARAMETER));\n               
+    var parameter_res = parameter_typeof != null ? parameter_typeof : parameter_is;\n\n\n               
+    var created_typeof = (PARAMETER)(CreatedParams.Find(param => typeof(PARAMETER)
+    == param.GetType()));\n                var created_is = (PARAMETER)(CreatedParams.Find(param
+    => param is PARAMETER));\n                var created_res = created_typeof !=
+    null ? created_typeof : created_is;\n\n                if (created_res != null)\n                   
+    return (PARAMETER)created_res;\n                else if (parameter_res != null)\n               
+    {\n                    var newParameter = Instantiate(parameter_res.gameObject,
+    ParamsRoot).GetComponent <#PARAM_TYPE#>();\n                    CreatedParams.Add(newParameter);\n\n                   
+    return (PARAMETER)newParameter;\n                }\n\n                return
+    default;\n            }\n        }\n    }\n}"
