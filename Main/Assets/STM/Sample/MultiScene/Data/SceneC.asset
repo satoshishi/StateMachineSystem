@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StateNode:
   - {fileID: 827133512477853783, guid: 060a3092f016941298981892630cc5de, type: 3}
-  ParamManagers: []
+  ParamManagers:
+  - {fileID: 8190583733433200693, guid: edfde0debe6fb4e5fbb67d03a798096c, type: 3}

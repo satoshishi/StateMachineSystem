@@ -50,7 +50,9 @@ namespace Samples.Parameters.Prefabs
 
             public override void UnRegister<PARAMETER>()
             {
-                int index = CreatedParams.FindIndex(param => typeof(PARAMETER) == param.GetType());
+                int index_typeof = (CreatedParams.FindIndex(param => typeof(PARAMETER) == param.GetType()));
+                int index_is = (CreatedParams.FindIndex(param => param is PARAMETER));
+                int index = index_typeof >= 0 ? index_typeof : index_is;
 
                 if (index >= 0)
                 {
@@ -62,8 +64,14 @@ namespace Samples.Parameters.Prefabs
 
             public PARAMETER Create<PARAMETER>() where PARAMETER : Prefaber
             {
-                var parameter_res = (PARAMETER)(Parameters.Find(param => typeof(PARAMETER) == param.GetType()));
-                var created_res = (PARAMETER)(CreatedParams.Find(param => typeof(PARAMETER) == param.GetType()));;
+                var parameter_typeof = (PARAMETER)(Parameters.Find(param => typeof(PARAMETER) == param.GetType()));
+                var parameter_is = (PARAMETER)(Parameters.Find(param => param is PARAMETER));
+                var parameter_res = parameter_typeof != null ? parameter_typeof : parameter_is;
+
+
+                var created_typeof = (PARAMETER)(CreatedParams.Find(param => typeof(PARAMETER) == param.GetType()));
+                var created_is = (PARAMETER)(CreatedParams.Find(param => param is PARAMETER));
+                var created_res = created_typeof != null ? created_typeof : created_is;
 
                 if (created_res != null)
                     return (PARAMETER)created_res;

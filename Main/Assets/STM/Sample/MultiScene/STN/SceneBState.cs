@@ -13,12 +13,6 @@ namespace Samples.MulScene
             base.Initialize(retentionItemsRoot, stateParameter);
         }
 
-        public Transform a;
-
-        public Transform b;
-
-        public Vector3 pos;
-
         public override void OnEnter()
         {
             base.OnEnter();
