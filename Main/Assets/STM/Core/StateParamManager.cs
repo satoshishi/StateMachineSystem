@@ -14,6 +14,14 @@ namespace STM.Param
         {
             Parameters = new List<StateParameter>(parameters);
         }
+
+        public override PARAMETER GetParameter<PARAMETER>()
+        {
+            var parameter_typeof = (PARAMETER) Parameters.Find(param => typeof(PARAMETER) == param.GetType());
+            var parameter_is = (PARAMETER) Parameters.Find(param => param is PARAMETER);
+
+            return parameter_typeof != null ? parameter_typeof : parameter_is;
+        }
     }
     
     public class StateParameter : MonoBehaviour,IMangeParameter

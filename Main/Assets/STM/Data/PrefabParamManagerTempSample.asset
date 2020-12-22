@@ -15,27 +15,36 @@ MonoBehaviour:
   Script: "using System.Collections;\nusing System.Collections.Generic;\nusing UnityEngine;\nusing
     STM.Param;\n\nnamespace #NAME_SPACE#\n{\n\n    public class #PARAM_TYPE# : MonoBehaviour,IMangeParameter
     { }\n\n    public class #PARAM_NAME# : StateParameter\n    {\n        public
-    Manager Parameter\n        {\n            get;\n            private set;\n       
+    readonly string ResourcesFolderPath = \"#RESOURCES_PATH#\";\n\n        public
+    Manager Instance\n        {\n            get;\n            private set;\n       
     } = null;\n\n        [SerializeField]\n        private List<#PARAM_TYPE#> m_prefabs;\n\n       
     [SerializeField]\n        private Transform m_root;\n\n        private void Awake()\n       
-    {\n            Parameter = transform.gameObject.AddComponent<Manager>();\n           
-    Parameter.Initialize(m_prefabs, m_root);\n        }\n\n        public class Manager
-    : ParamManagerBase<#PARAM_TYPE#>\n        {\n            public List<#PARAM_TYPE#>
-    CreatedParams \n            {\n                get;\n                set;\n           
-    } = new List<#PARAM_TYPE#>();\n\n            public Transform ParamsRoot\n           
-    {\n                get;\n                set;\n            } = null;\n\n           
-    public void Initialize(List<#PARAM_TYPE#> prefabs,Transform root) \n           
-    {\n                Parameters = prefabs;\n                ParamsRoot = root;\n           
-    }\n\n            public override void UnRegister<PARAMETER>()\n            {\n               
-    int index = CreatedParams.FindIndex(param => typeof(PARAMETER) == param.GetType());\n\n               
-    if (index >= 0)\n                {\n                    var target = CreatedParams[index].gameObject;\n                   
-    GameObject.Destroy(target);\n                    CreatedParams.RemoveAt(index);\n               
-    }\n            }\n\n            public PARAMETER Create<PARAMETER>() where PARAMETER
-    : #PARAM_TYPE#\n            {\n                var ui = (Parameters.Find(param
-    => typeof(PARAMETER) == param.GetType()));\n                var createdUI = (CreatedParams.Find(param
-    => typeof(PARAMETER) == param.GetType()));\n\n                if (createdUI !=
-    null)\n                    return (PARAMETER)createdUI;\n                else
-    if (ui != null)\n                {\n                    var newUI = Instantiate(ui.gameObject,
-    ParamsRoot).GetComponent <#PARAM_TYPE#>();\n                    CreatedParams.Add(newUI);\n\n                   
-    return (PARAMETER)newUI;\n                }\n\n                return default;\n           
-    }\n        }\n    }\n}"
+    {\n            var resoruces = Resources.LoadAll(ResourcesFolderPath,typeof(#PARAM_TYPE#));\n           
+    foreach(var resoruce in resoruces)\n                m_prefabs.Add((#PARAM_TYPE#)resoruce);\n\n           
+    Instance = transform.gameObject.AddComponent<Manager>();\n            Instance.Initialize(m_prefabs,
+    m_root);\n        }\n\n        public class Manager : ParamManagerBase<#PARAM_TYPE#>\n       
+    {\n            public List<#PARAM_TYPE#> CreatedParams \n            {\n               
+    get;\n                set;\n            } = new List<#PARAM_TYPE#>();\n\n           
+    public Transform ParamsRoot\n            {\n                get;\n               
+    set;\n            } = null;\n\n            public void Initialize(List<#PARAM_TYPE#>
+    prefabs,Transform root) \n            {\n                Parameters = prefabs;\n               
+    ParamsRoot = root;\n            }\n\n            public override void UnRegister<PARAMETER>()\n           
+    {\n                int index_typeof = (CreatedParams.FindIndex(param => typeof(PARAMETER)
+    == param.GetType()));\n                int index_is = (CreatedParams.FindIndex(param
+    => param is PARAMETER));\n                int index = index_typeof >= 0 ? index_typeof
+    : index_is;\n\n                if (index >= 0)\n                {\n                   
+    var target = CreatedParams[index].gameObject;\n                    GameObject.Destroy(target);\n                   
+    CreatedParams.RemoveAt(index);\n                }\n            }\n\n           
+    public PARAMETER Create<PARAMETER>() where PARAMETER : #PARAM_TYPE#\n           
+    {\n                var parameter_typeof = (PARAMETER)(Parameters.Find(param =>
+    typeof(PARAMETER) == param.GetType()));\n                var parameter_is = (PARAMETER)(Parameters.Find(param
+    => param is PARAMETER));\n                var parameter_res = parameter_typeof
+    != null ? parameter_typeof : parameter_is;\n\n\n                var created_typeof
+    = (PARAMETER)(CreatedParams.Find(param => typeof(PARAMETER) == param.GetType()));\n               
+    var created_is = (PARAMETER)(CreatedParams.Find(param => param is PARAMETER));\n               
+    var created_res = created_typeof != null ? created_typeof : created_is;\n\n               
+    if (created_res != null)\n                    return (PARAMETER)created_res;\n               
+    else if (parameter_res != null)\n                {\n                    var newParameter
+    = Instantiate(parameter_res.gameObject, ParamsRoot).GetComponent <#PARAM_TYPE#>();\n                   
+    CreatedParams.Add(newParameter);\n\n                    return (PARAMETER)newParameter;\n               
+    }\n\n                return default;\n            }\n        }\n    }\n}"
