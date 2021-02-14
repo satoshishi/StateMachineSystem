@@ -18,7 +18,7 @@ namespace STM.Param
 
         public virtual void Register<PARAMETER>(PARAMETER parameter) where PARAMETER : MANAGE_PARAMETER_TYPE
         {
-            int index = Parameters.FindIndex(param => typeof(PARAMETER) == param.GetType());
+            int index  = Parameters.FindIndex(param => typeof(PARAMETER) == param.GetType());
 
             if(index >= 0)
                 Parameters[index] = parameter;
@@ -27,7 +27,7 @@ namespace STM.Param
 
         public virtual void UnRegister<PARAMETER>() where PARAMETER : MANAGE_PARAMETER_TYPE
         {
-            int index = Parameters.FindIndex(param => typeof(PARAMETER) == param.GetType());
+            int index  = Parameters.FindIndex(param => typeof(PARAMETER) == param.GetType());
 
             if(index >= 0)
                 Parameters.RemoveAt(index);

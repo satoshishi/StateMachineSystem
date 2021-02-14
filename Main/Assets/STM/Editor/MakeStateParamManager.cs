@@ -44,6 +44,18 @@ public class MakeStateParamManager : STMEditor
             get;
             set;
         } = "";
+
+        public string ResourcesFolderName
+        {
+            get;
+            set;
+        } = "";
+
+        public string ResourcesFolderPath
+        {
+            get;
+            set;
+        } = "";
     }
 
     Info ScriptInfo
@@ -118,6 +130,9 @@ public class MakeStateParamManager : STMEditor
 
                 if (Settings != null)
                 {
+                    if(Settings.ParamManagers == null)
+                        Settings.ParamManagers = new List<StateParameter>();
+                        
                     Settings.ParamManagers.Add(prefab.GetComponent<StateParameter>());
                     EditorUtility.SetDirty(Settings);
                     AssetDatabase.SaveAssets();
@@ -148,12 +163,20 @@ public class MakeStateParamManager : STMEditor
 
     public override void MakeScriptEdit(GUIStyle style)
     {
-        void fnMake(string path, string paramName, string paramTypeName, string template, string nameSpace)
+        void fnMake(string path, string paramName, string paramTypeName, string template, string nameSpace, string resoucesFolderName, string resourcesFolderPath)
         {
             var filePath = path + "/" + paramName + ".cs";
-            var code = template.Replace(@"#PARAM_NAME#", paramName).Replace(@"#PARAM_TYPE#", paramTypeName).Replace(@"#NAME_SPACE#", nameSpace);
+            var code = template.Replace(@"#PARAM_NAME#", paramName).Replace(@"#PARAM_TYPE#", paramTypeName).Replace(@"#NAME_SPACE#", nameSpace).Replace(@"#RESOURCES_PATH#", resoucesFolderName);
             File.WriteAllText(filePath, code);
+
+            if (!string.IsNullOrEmpty(resourcesFolderPath) && Directory.Exists(resourcesFolderPath + "/" + resoucesFolderName))
+            {
+                AssetDatabase.Refresh();
+                return;
+            }
+            Directory.CreateDirectory(resourcesFolderPath + "/" + resoucesFolderName);
             AssetDatabase.Refresh();
+
         }
 
         EditorGUILayout.LabelField("Make Script", style);
@@ -164,15 +187,21 @@ public class MakeStateParamManager : STMEditor
         ScriptInfo.ParamTypeName = EditorGUILayout.TextField("ParamType Name", ScriptInfo.ParamTypeName);
         ScriptInfo.NameSpace = EditorGUILayout.TextField("Name Space", ScriptInfo.NameSpace);
 
-        if (GUILayout.Button("Path"))
+        if (GUILayout.Button("Script Path"))
             ScriptInfo.FilePath = EditorUtility.OpenFolderPanel("Choice StateNode Script Path", Application.dataPath, string.Empty);
         EditorGUILayout.LabelField(ScriptInfo.FilePath);
 
+        ScriptInfo.ResourcesFolderName = EditorGUILayout.TextField("Resources Folder Name", ScriptInfo.ResourcesFolderName);
+        if (GUILayout.Button("Folder Path"))
+            ScriptInfo.ResourcesFolderPath = EditorUtility.OpenFolderPanel("Choice Resources Folder Path", Application.dataPath, string.Empty);
+        EditorGUILayout.LabelField(ScriptInfo.ResourcesFolderPath);
+
         if (GUILayout.Button("Make"))
         {
-            if (!string.IsNullOrEmpty(ScriptInfo.FilePath) && !ScriptInfo.ParamManagerName.Equals("") && !ScriptInfo.ParamTypeName.Equals("") && Format != null && !Format.Script.Equals(""))
+            if (!string.IsNullOrEmpty(ScriptInfo.FilePath) && !ScriptInfo.ParamManagerName.Equals("") && !ScriptInfo.ParamTypeName.Equals("") && Format != null && !Format.Script.Equals("")
+            && !string.IsNullOrEmpty(ScriptInfo.ResourcesFolderName))
             {
-                fnMake(ScriptInfo.FilePath, ScriptInfo.ParamManagerName, ScriptInfo.ParamTypeName, Format.Script, ScriptInfo.NameSpace);
+                fnMake(ScriptInfo.FilePath, ScriptInfo.ParamManagerName, ScriptInfo.ParamTypeName, Format.Script, ScriptInfo.NameSpace, ScriptInfo.ResourcesFolderName, string.IsNullOrEmpty(ScriptInfo.ResourcesFolderPath) ? "" : ScriptInfo.ResourcesFolderPath);
             }
         }
     }

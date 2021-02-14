@@ -122,6 +122,8 @@ public class MakeStateNode : STMEditor
 
                 if (Settings != null)
                 {
+                    if(Settings.StateNode == null)
+                       Settings.StateNode = new List<StateNodeBase>();
                     Settings.StateNode.Add(prefab.GetComponent<StateNodeBase>());
                     EditorUtility.SetDirty(Settings);
                     AssetDatabase.SaveAssets();
