@@ -12,52 +12,19 @@ using STM.DomainModel;
 
 public class MakeStateMachine : STMEditor
 {
-    public class Info
-    {
-        public string StateMachineName
-        {
-            get;
-            set;
-        } = "";
-
-        public int NodeBaseNameIndex
-        {
-            get;
-            set;
-        } = 0;
-
-        public int FirstNodeNameIndex
-        {
-            get;
-            set;
-        } = 0;
-
-        public string FilePath
-        {
-            get;
-            set;
-        } = "";
-
-        public string NameSpace
-        {
-            get;
-            set;
-        } = "";
-    }
-
-    Info ScriptInfo
+    public string StateMachineName
     {
         get;
         set;
-    } = new Info();
+    } = "";
 
-    Info PrefabInfo
+    public string FilePath
     {
         get;
         set;
-    } = new Info();
+    } = "";
 
-    TemplateSetting Format
+    MakeStateMachineSettings Format
     {
         get;
         set;
@@ -81,8 +48,6 @@ public class MakeStateMachine : STMEditor
         GUIStyleState state = new GUIStyleState();
         state.textColor = Color.white;
         style.normal = state;
-
-        RefreshScirptTypes();
 
         EditorGUILayout.Space();
         EditorGUILayout.Space();
@@ -129,16 +94,16 @@ public class MakeStateMachine : STMEditor
         EditorGUILayout.LabelField("Make Prefab", style);
 
         Settings = EditorGUILayout.ObjectField("Target STM Settings", Settings, typeof(StateMachineSettings), true) as StateMachineSettings;
-        PrefabInfo.NodeBaseNameIndex = EditorGUILayout.Popup("Prefab Name", PrefabInfo.NodeBaseNameIndex, ScriptTypes);
+        StateMachineName = EditorGUILayout.TextField("StateMachine Name",StateMachineName);
 
         if (GUILayout.Button("Path"))
-            PrefabInfo.FilePath = EditorUtility.OpenFolderPanel("Choice Prefab Path", Application.dataPath, string.Empty);
-        EditorGUILayout.LabelField(PrefabInfo.FilePath);
+            FilePath = EditorUtility.OpenFolderPanel("Choice Prefab Path", Application.dataPath, string.Empty);
+        EditorGUILayout.LabelField(FilePath);
 
         if (GUILayout.Button("Make"))
         {
-            if (!string.IsNullOrEmpty(PrefabInfo.FilePath))
-                fnMake(PrefabInfo.FilePath, ScriptTypes[PrefabInfo.NodeBaseNameIndex]);
+            if (!string.IsNullOrEmpty(FilePath))
+                fnMake(FilePath,StateMachineName);
         }
     }
 
@@ -154,21 +119,18 @@ public class MakeStateMachine : STMEditor
 
         EditorGUILayout.LabelField("Make Script", style);
 
-        Format = EditorGUILayout.ObjectField("TemplateSettings", Format, typeof(TemplateSetting), true) as TemplateSetting;
+        Format = EditorGUILayout.ObjectField("TemplateSettings", Format, typeof(MakeStateMachineSettings), true) as MakeStateMachineSettings;
 
-        ScriptInfo.StateMachineName = EditorGUILayout.TextField("StateMachine Name", ScriptInfo.StateMachineName);
-        ScriptInfo.NodeBaseNameIndex = EditorGUILayout.Popup("NodeBase Name", ScriptInfo.NodeBaseNameIndex, ScriptTypes);
-        ScriptInfo.FirstNodeNameIndex = EditorGUILayout.Popup("FristNode Name", ScriptInfo.FirstNodeNameIndex, ScriptTypes);
-        ScriptInfo.NameSpace = EditorGUILayout.TextField("Name Space", ScriptInfo.NameSpace);
+        StateMachineName = EditorGUILayout.TextField("StateMachine Name",StateMachineName);
 
         if (GUILayout.Button("Path"))
-            ScriptInfo.FilePath = EditorUtility.OpenFolderPanel("Choice StateNode Script Path", Application.dataPath, string.Empty);
-        EditorGUILayout.LabelField(ScriptInfo.FilePath);
+            FilePath = EditorUtility.OpenFolderPanel("Choice StateNode Script Path", Application.dataPath, string.Empty);
+        EditorGUILayout.LabelField(FilePath);
 
         if (GUILayout.Button("Make"))
         {
-            if (!string.IsNullOrEmpty(ScriptInfo.FilePath) && !ScriptInfo.StateMachineName.Equals("") && Format != null && !Format.Script.Equals(""))
-                fnMake(ScriptInfo.FilePath, ScriptInfo.StateMachineName, ScriptTypes[ScriptInfo.NodeBaseNameIndex], ScriptTypes[ScriptInfo.FirstNodeNameIndex], Format.Script, ScriptInfo.NameSpace);
+            if (!string.IsNullOrEmpty(FilePath))
+                fnMake(FilePath,StateMachineName, Format.StateNodeBaseSettings.StateNodeBaseName, Format.FirstTransitionStateNode.name, Format.SourceCode.text,Format.StateNodeBaseSettings.NameSpace);
         }
     }
 

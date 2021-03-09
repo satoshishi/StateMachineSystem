@@ -13,64 +13,19 @@ using STM.Param;
 
 public class MakeStateParamManager : STMEditor
 {
-    public class Info
-    {
-        public string ParamManagerName
-        {
-            get;
-            set;
-        } = "";
-
-        public string ParamTypeName
-        {
-            get;
-            set;
-        } = "";
-
-        public string FilePath
-        {
-            get;
-            set;
-        } = "";
-
-        public int TypeIndex
-        {
-            get;
-            set;
-        } = 0;
-
-        public string NameSpace
-        {
-            get;
-            set;
-        } = "";
-
-        public string ResourcesFolderName
-        {
-            get;
-            set;
-        } = "";
-
-        public string ResourcesFolderPath
-        {
-            get;
-            set;
-        } = "";
-    }
-
-    Info ScriptInfo
+    public string FilePath
     {
         get;
         set;
-    } = new Info();
+    } = "";
 
-    Info PrefabInfo
+    public string ResourcesFolderPath
     {
         get;
         set;
-    } = new Info();
+    } = "";
 
-    TemplateSetting Format
+    MakeStateParamManagerSettings Format
     {
         get;
         set;
@@ -94,8 +49,6 @@ public class MakeStateParamManager : STMEditor
         GUIStyleState state = new GUIStyleState();
         state.textColor = Color.white;
         style.normal = state;
-
-        RefreshScirptTypes();
 
         EditorGUILayout.Space();
         EditorGUILayout.Space();
@@ -130,10 +83,10 @@ public class MakeStateParamManager : STMEditor
 
                 if (Settings != null)
                 {
-                    if(Settings.ParamManagers == null)
-                        Settings.ParamManagers = new List<StateParameter>();
-                        
-                    Settings.ParamManagers.Add(prefab.GetComponent<StateParameter>());
+                    if (Settings.ParamManagers == null)
+                        Settings.ParamManagers = new List<StateMachineParamManager>();
+
+                    Settings.ParamManagers.Add(prefab.GetComponent<StateMachineParamManager>());
                     EditorUtility.SetDirty(Settings);
                     AssetDatabase.SaveAssets();
                 }
@@ -145,18 +98,18 @@ public class MakeStateParamManager : STMEditor
 
         EditorGUILayout.LabelField("Make Prefab", style);
 
+        Format = EditorGUILayout.ObjectField("TemplateSettings", Format, typeof(MakeStateParamManagerSettings), true) as MakeStateParamManagerSettings;
         Settings = EditorGUILayout.ObjectField("Target STM Settings", Settings, typeof(StateMachineSettings), true) as StateMachineSettings;
-        PrefabInfo.TypeIndex = EditorGUILayout.Popup("Prefab Name", PrefabInfo.TypeIndex, ScriptTypes);
 
         if (GUILayout.Button("Path"))
-            PrefabInfo.FilePath = EditorUtility.OpenFolderPanel("Choice Prefab Path", Application.dataPath, string.Empty);
-        EditorGUILayout.LabelField(PrefabInfo.FilePath);
+            FilePath = EditorUtility.OpenFolderPanel("Choice Prefab Path", Application.dataPath, string.Empty);
+        EditorGUILayout.LabelField(FilePath);
 
         if (GUILayout.Button("Make"))
         {
-            if (!string.IsNullOrEmpty(PrefabInfo.FilePath))
+            if (!string.IsNullOrEmpty(FilePath))
             {
-                fnMake(PrefabInfo.FilePath, ScriptTypes[PrefabInfo.TypeIndex]);
+                fnMake(FilePath,Format.ParamManagerName);
             }
         }
     }
@@ -169,39 +122,32 @@ public class MakeStateParamManager : STMEditor
             var code = template.Replace(@"#PARAM_NAME#", paramName).Replace(@"#PARAM_TYPE#", paramTypeName).Replace(@"#NAME_SPACE#", nameSpace).Replace(@"#RESOURCES_PATH#", resoucesFolderName);
             File.WriteAllText(filePath, code);
 
-            if (!string.IsNullOrEmpty(resourcesFolderPath) && Directory.Exists(resourcesFolderPath + "/" + resoucesFolderName))
-            {
-                AssetDatabase.Refresh();
-                return;
-            }
-            Directory.CreateDirectory(resourcesFolderPath + "/" + resoucesFolderName);
+            if(!string.IsNullOrEmpty(resoucesFolderName)   && 
+               !string.IsNullOrEmpty(resourcesFolderPath) &&
+               !Directory.Exists(resourcesFolderPath + "/" + resoucesFolderName))
+               {
+                    Directory.CreateDirectory(resourcesFolderPath + "/" + resoucesFolderName);                   
+               }
             AssetDatabase.Refresh();
-
         }
 
         EditorGUILayout.LabelField("Make Script", style);
 
-        Format = EditorGUILayout.ObjectField("TemplateSettings", Format, typeof(TemplateSetting), true) as TemplateSetting;
-
-        ScriptInfo.ParamManagerName = EditorGUILayout.TextField("ParamManager Name", ScriptInfo.ParamManagerName);
-        ScriptInfo.ParamTypeName = EditorGUILayout.TextField("ParamType Name", ScriptInfo.ParamTypeName);
-        ScriptInfo.NameSpace = EditorGUILayout.TextField("Name Space", ScriptInfo.NameSpace);
+        Format = EditorGUILayout.ObjectField("TemplateSettings", Format, typeof(MakeStateParamManagerSettings), true) as MakeStateParamManagerSettings;
 
         if (GUILayout.Button("Script Path"))
-            ScriptInfo.FilePath = EditorUtility.OpenFolderPanel("Choice StateNode Script Path", Application.dataPath, string.Empty);
-        EditorGUILayout.LabelField(ScriptInfo.FilePath);
+            FilePath = EditorUtility.OpenFolderPanel("Choice StateNode Script Path", Application.dataPath, string.Empty);
+        EditorGUILayout.LabelField(FilePath);
 
-        ScriptInfo.ResourcesFolderName = EditorGUILayout.TextField("Resources Folder Name", ScriptInfo.ResourcesFolderName);
         if (GUILayout.Button("Folder Path"))
-            ScriptInfo.ResourcesFolderPath = EditorUtility.OpenFolderPanel("Choice Resources Folder Path", Application.dataPath, string.Empty);
-        EditorGUILayout.LabelField(ScriptInfo.ResourcesFolderPath);
+            ResourcesFolderPath = EditorUtility.OpenFolderPanel("Choice Resources Folder Path", Application.dataPath, string.Empty);
+        EditorGUILayout.LabelField(ResourcesFolderPath);
 
         if (GUILayout.Button("Make"))
         {
-            if (!string.IsNullOrEmpty(ScriptInfo.FilePath) && !ScriptInfo.ParamManagerName.Equals("") && !ScriptInfo.ParamTypeName.Equals("") && Format != null && !Format.Script.Equals("")
-            && !string.IsNullOrEmpty(ScriptInfo.ResourcesFolderName))
+            if (!string.IsNullOrEmpty(FilePath))
             {
-                fnMake(ScriptInfo.FilePath, ScriptInfo.ParamManagerName, ScriptInfo.ParamTypeName, Format.Script, ScriptInfo.NameSpace, ScriptInfo.ResourcesFolderName, string.IsNullOrEmpty(ScriptInfo.ResourcesFolderPath) ? "" : ScriptInfo.ResourcesFolderPath);
+                fnMake(FilePath, Format.ParamManagerName, Format.ParamTypeName, Format.SourceCode.text, Format.NameSpace, Format.ResourcesFolderName, ResourcesFolderPath);
             }
         }
     }

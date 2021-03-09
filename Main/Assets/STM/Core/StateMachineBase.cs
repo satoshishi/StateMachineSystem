@@ -9,7 +9,7 @@ using STM.DomainModel;
 namespace STM
 {
     [RequireComponent(typeof(StateMachineDomainModel))]    
-    public class StateMachineBase<STATE_NODE> : StateParameter where STATE_NODE : StateNodeBase
+    public class StateMachineBase<STATE_NODE> : MonoBehaviour where STATE_NODE : StateNodeBase
     {
         protected StateMachineDomainModel DomainModel
         {
@@ -34,15 +34,15 @@ namespace STM
             void fnInitParamManager()
             {
                 var paramManager = DomainModel.STMSettings.ParamManagers;
-                List<StateParameter> paramManagerInstances = new List<StateParameter>();
+                List<StateMachineParamManager> paramManagerInstances = new List<StateMachineParamManager>();
 
-                foreach (StateParameter sp in paramManager)
+                foreach (StateMachineParamManager sp in paramManager)
                 {
-                    var instance = Instantiate(sp.gameObject, Vector3.zero, Quaternion.identity, DomainModel.StateParameter.transform) as GameObject;
-                    paramManagerInstances.Add(instance.GetComponent<StateParameter>());
+                    var instance = Instantiate(sp.gameObject, Vector3.zero, Quaternion.identity, DomainModel.StateParameter.transform).GetComponent<StateMachineParamManager>();
+                    paramManagerInstances.Add(instance);
                 }
 
-                paramManagerInstances.Add(this.GetComponent<StateParameter>());
+                paramManagerInstances.Add(this.GetComponent<StateMachineParamManager>());
                 DomainModel.StateParameter.Initialize(paramManagerInstances);               
             }
 
@@ -115,7 +115,7 @@ namespace STM
                 case eStateNodeStatus.StateInitialize:
                     Debug.Log($"{node.GetType().BaseType}-{node.GetType()}-{stateStatus}");     
                     node.gameObject.name = $"{node.GetType()}";
-                    node?.Initialize(DomainModel.RetentionRoot,DomainModel.StateParameter);
+                    node?.Initialize(DomainModel.StateParameter);
                     break;
 
                 case eStateNodeStatus.StateEnter:

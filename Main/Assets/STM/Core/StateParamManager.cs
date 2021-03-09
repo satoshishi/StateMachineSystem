@@ -2,29 +2,38 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 
 namespace STM.Param
 {
     /// <summary>
     /// StateParameterを継承するParameterManagerを管理する
     /// </summary>
-    public class StateParamManager : ParamManagerBase<StateParameter>
+    public class StateParamManager : MonoBehaviour
     {
-        public override void Initialize(List<StateParameter> parameters)
+        public class StateParamContainer : ParamManagerBase_RegisterInstanceAtRuntime<StateMachineParamManager>
         {
-            Parameters = new List<StateParameter>(parameters);
+            public override void Initialize(List<StateMachineParamManager> parameters)
+            {
+
+                Parameters = new List<StateMachineParamManager>(parameters);
+            }
         }
 
-        public override PARAMETER GetParameter<PARAMETER>()
+        public StateParamContainer Collections
         {
-            var parameter_typeof = (PARAMETER) Parameters.Find(param => typeof(PARAMETER) == param.GetType());
-            var parameter_is = (PARAMETER) Parameters.Find(param => param is PARAMETER);
+            get;
+            private set;
+        } = null;
 
-            return parameter_typeof != null ? parameter_typeof : parameter_is;
+        public void Initialize(List<StateMachineParamManager> parameters)
+        {
+            Collections = new StateParamContainer();
+            Collections.Initialize(parameters);
         }
     }
-    
-    public class StateParameter : MonoBehaviour,IMangeParameter
+
+    public class StateMachineParamManager : MonoBehaviour
     {
 
     }
