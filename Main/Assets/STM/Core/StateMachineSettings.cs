@@ -4,10 +4,10 @@ using UnityEngine;
 using STM.STN;
 using STM.Param;
 
-[CreateAssetMenu(menuName = "StateMachineSettings")]
+[CreateAssetMenu(menuName = "STM_Editor/StateMachineSettings")]
 public class StateMachineSettings : ScriptableObject
 {
     public List<StateNodeBase> StateNode;
 
-    public List<StateParameter> ParamManagers;
+    public List<StateMachineParamManager> ParamManagers;
 }

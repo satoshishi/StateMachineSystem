@@ -10,7 +10,7 @@ using System.Reflection;
 
 public class MakeStateNodeBase : STMEditor
 {
-    TemplateSetting Format
+    MakeStateNodeBaseSettings Format
     {
         get;
         set;
@@ -59,9 +59,7 @@ public class MakeStateNodeBase : STMEditor
             AssetDatabase.Refresh();
         }
 
-        Format = EditorGUILayout.ObjectField("TemplateSettings", Format, typeof(TemplateSetting), true) as TemplateSetting;
-        NodeBaseName = EditorGUILayout.TextField("NodeBase Name", NodeBaseName);
-        NameSpace = EditorGUILayout.TextField("Name Space", NameSpace);
+        Format = EditorGUILayout.ObjectField("TemplateSettings", Format, typeof(MakeStateNodeBaseSettings), true) as MakeStateNodeBaseSettings;
 
         if (GUILayout.Button("Path"))
             FilePath = EditorUtility.OpenFolderPanel("Choice StateNode Script Path", Application.dataPath, string.Empty);
@@ -69,8 +67,8 @@ public class MakeStateNodeBase : STMEditor
 
         if (GUILayout.Button("Make"))
         {
-            if (!string.IsNullOrEmpty(FilePath) && !NodeBaseName.Equals("") && Format != null && !Format.Script.Equals(""))
-                fnMake(FilePath, NodeBaseName, Format.Script, NameSpace);
+            if (!string.IsNullOrEmpty(FilePath))
+                fnMake(FilePath, Format.StateNodeBaseName, Format.SourceCode.text, Format.NameSpace);
         }
     }
 }

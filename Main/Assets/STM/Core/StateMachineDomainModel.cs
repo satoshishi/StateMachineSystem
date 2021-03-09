@@ -29,13 +29,6 @@ namespace STM.DomainModel
         }
 
         [SerializeField]
-        public Transform m_retentionItemsRoot;
-        public Transform RetentionRoot
-        {
-            get{return m_retentionItemsRoot;}
-        }
-
-        [SerializeField]
         private StateParamManager m_stateParameter;
         public StateParamManager StateParameter
         {

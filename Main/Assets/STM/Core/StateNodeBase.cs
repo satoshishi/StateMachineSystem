@@ -8,11 +8,6 @@ namespace STM.STN
 {
     public class StateNodeBase : MonoBehaviour
     {
-        protected Transform RetentionItemsRoot
-        {
-            get;
-            private set;
-        } = null;
 
         protected StateParamManager StateParameter
         {
@@ -20,9 +15,8 @@ namespace STM.STN
             private set;
         } = null;
 
-        public virtual void Initialize(Transform retentionItemsRoot,StateParamManager stateParameter)
+        public virtual void Initialize(StateParamManager stateParameter)
         {
-            RetentionItemsRoot = retentionItemsRoot;
             StateParameter = stateParameter;
         }
 

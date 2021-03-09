@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ac70cbb1ea674d11bad344b1af46a25, type: 3}
+  m_Name: SampleSTMSettings
+  m_EditorClassIdentifier: 
+  SourceCode: {fileID: 4900000, guid: 3a99e54ff5d3b4c10a379ad2dcd61099, type: 3}
+  StateNodeBaseSettings: {fileID: 11400000, guid: 082e404c1289240d9badecef3c8d5685,
+    type: 2}
+  FirstTransitionStateNode: {fileID: 7522026979269571539, guid: 1039f4be33e5d47fba52614da9204f54,
+    type: 3}

@@ -1,0 +1,10 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using STM.STN;
+using STM;
+
+namespace #NAME_SPACE#
+{
+    public class #NODE_BASE# : StateNodeBase { }
+}
