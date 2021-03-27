@@ -1,0 +1,12 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using StateMachineService.StateParameter;
+
+namespace #SERVICE_NAME#.StateParameter.Entity
+{
+    public interface #ENTITY_NAME#
+    {
+        
+    }
+}
