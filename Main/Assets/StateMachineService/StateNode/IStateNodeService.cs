@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using StateMachineService.StateParameterRepository;
+using StateMachineService.StateMachine;
 
 namespace StateMachineService.StateNode
 {
@@ -9,10 +10,12 @@ namespace StateMachineService.StateNode
     {
         IStateParameterRepository StateParameterRepository{get;}
 
-        void Initialize(IStateParameterRepository stateParameterRepository);
+        IStateMachineService StateMachineService{get;}
 
-        void OnEnter();
+        void Initialize(IStateParameterRepository stateParameterRepository, IStateMachineService stateMachineService);
 
-        void OnExit();
+        void OnEnter(IStateNodeService from);
+
+        void OnExit(IStateNodeService to);
     }
 }

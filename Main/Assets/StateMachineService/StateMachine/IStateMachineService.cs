@@ -3,10 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using StateMachineService.StateParameterRepository;
 using StateMachineService.StateNode;
+using StateMachineService.Settings;
 
-public interface IStateMachineService
+namespace StateMachineService.StateMachine
 {
-    IStateParameterRepository StateParameterRepository { get; }
+    public interface IStateMachineService
+    {
+        List<IStateNodeService> StateNodes { get; }
 
-    void UpdateState<STATE_NODE>() where STATE_NODE : IStateNodeService;
+        IStateParameterRepository StateParameterRepository { get; }
+
+        IStateNodeService CurrentState {get;set;}
+
+        IStateNodeService PreviousState{get;set;}        
+
+        void Initialize<FIRST_STATE>(IStateMachineIntializer initService) where FIRST_STATE : IStateNodeService;        
+
+        void UpdateState<STATE_NODE>() where STATE_NODE : IStateNodeService;
+    }
 }

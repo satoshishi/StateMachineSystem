@@ -1,0 +1,18 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using StateMachineService.Settings;
+using StateMachineService.StateMachine;
+using #SERVICE_NAME#.StateNode;
+
+namespace #SERVICE_NAME#.StateMachine
+{
+    public class #SERVICE_NAME#StateMachine : PaupawsanStateMachineBase
+    {
+        // Start is called before the first frame update
+        void Start()
+        {
+            Initialize<#FIRST_STATE_NODE#>(GetComponent<IStateMachineIntializer>());
+        }
+    }
+}
