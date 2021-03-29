@@ -2,33 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 using StateMachineService.StateNode;
-using StateMachineService.Settings;
+using StateMachineService.Parameter;
 using StateMachineService.Locator;
 using PaupawsanSTM.Core;
 
 namespace StateMachineService.StateMachine
 {
-    [RequireComponent(typeof(InitializeStateMachineServices))]
+    [RequireComponent(typeof(IStateMachineParameter))]
     public abstract class PaupawsanStateMachineBase : MonoBehaviour, IStateMachineService
     {
         public StateMachineCore<IStateNodeService> STMCore { get { return stateMachineCore; } }
         private StateMachineCore<IStateNodeService> stateMachineCore = null;
 
-        public List<IStateNodeService> StateNodes { get { return stateNodes; } }
-        private List<IStateNodeService> stateNodes = new List<IStateNodeService>();
-
-        public IServiceLocator Services { get { return services; } }
-        private IServiceLocator services = null;
+        public IStateMachineParameter StateMachineParameter{get{return stateMachineParameter;}}
+        private IStateMachineParameter stateMachineParameter = null;
 
         public IStateNodeService CurrentState {get;set;} = null;
 
         public IStateNodeService PreviousState{get;set;} = null;
 
-        public virtual void Initialize<FIRST_STATE>(IStateMachineIntializer initService) where FIRST_STATE : IStateNodeService
+        public virtual void Initialize<FIRST_STATE>(IStateMachineParameter paramter) where FIRST_STATE : IStateNodeService
         {
-            services = initService.Get_ServiceLocator();
-
-            stateNodes = initService.Get_StateNodeServices();
+            paramter.Initialize();
+            stateMachineParameter = paramter;
 
             InitializeStateMachineCore<FIRST_STATE>();
         }
@@ -36,7 +32,7 @@ namespace StateMachineService.StateMachine
         public virtual void InitializeStateMachineCore<FIRST_STATE>() where FIRST_STATE : IStateNodeService
         {
             stateMachineCore = new StateMachineCore<IStateNodeService>(UpdateStateNodeStatus, false);
-            stateNodes.ForEach(node => stateMachineCore.RegisterStateNode(node, new StateNodeCore<IStateNodeService>(node, stateMachineCore)));
+            stateMachineParameter.StateNodes.ForEach(node => stateMachineCore.RegisterStateNode(node, new StateNodeCore<IStateNodeService>(node, stateMachineCore)));
             if (TryGetStateNode<FIRST_STATE>(out IStateNodeService first_state))
             {
                 CurrentState = first_state;
@@ -47,7 +43,7 @@ namespace StateMachineService.StateMachine
 
         public virtual bool TryGetStateNode<NODE_TYPE>(out IStateNodeService service) where NODE_TYPE : IStateNodeService
         {
-            var res = StateNodes.Find(statenode => statenode is NODE_TYPE);
+            var res = stateMachineParameter.StateNodes.Find(statenode => statenode is NODE_TYPE);
 
             if (res != null)
             {
@@ -61,7 +57,7 @@ namespace StateMachineService.StateMachine
 
         public virtual bool TryGetStateNode(IStateNodeService stateType, out IStateNodeService service)
         {
-            var res = StateNodes.Find(statenode => statenode.GetType().Equals(stateType.GetType()));
+            var res = stateMachineParameter.StateNodes.Find(statenode => statenode.GetType().Equals(stateType.GetType()));
 
             if (res != null)
             {
@@ -82,7 +78,12 @@ namespace StateMachineService.StateMachine
             {
                 case eStateNodeStatus.StateInitialize:
                     Debug.Log($"{node.GetType().BaseType}-{node.GetType()}-{stateStatus}");
-                    node?.Initialize(services, this);
+                    node?.Initialize(new StateNodeParamter(
+                        new StateNodeParamter.Command()
+                        {
+                            StateMachine = this,
+                            ServiceLocator = stateMachineParameter.ServiceLocator
+                        }));
                     break;
 
                 case eStateNodeStatus.StateEnter:

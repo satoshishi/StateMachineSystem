@@ -4,14 +4,14 @@ using UnityEngine;
 using StateMachineService.Locator;
 using System;
 
-[RequireComponent(typeof(DummyPrefabRepository))]
-public class DummyPrefabRepositoryInstaller : MonoBehaviour,IPrefabServiceInstaller
+[RequireComponent(typeof(PrefabRepository))]
+public class PrefabRepositoryInstaller : MonoBehaviour,IPrefabServiceInstaller
 {
     public KeyValuePair<Type,object> Install()
     {
         return new KeyValuePair<Type, object>(
-            typeof(PrefabRepositroy),
-            GetComponent<PrefabRepositroy>()
+            typeof(PrefabRepository),
+            GetComponent<PrefabRepository>()
         );
     }
 }

@@ -6,7 +6,7 @@ using System.IO;
 using UnityEditor.Callbacks;
 using System;
 using System.Reflection;
-using StateMachineService.Settings;
+using StateMachineService.Parameter;
 using System.Text.RegularExpressions;
 
 namespace StateMachineService.Editor
@@ -112,7 +112,7 @@ namespace StateMachineService.Editor
 
             public string ServiceName;
 
-            public StateMachineServiceSettings STMSettings;
+            public StateMachineParameterSettings STMSettings;
         }
 
         public FileCreateServiceCommand ThisCommand;

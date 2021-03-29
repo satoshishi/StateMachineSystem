@@ -1,18 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using StateMachineService.StateParameter;
 using StateMachineService.StateNode;
 using StateMachineService.Locator;
-using System;
 
-namespace StateMachineService.Settings
+namespace StateMachineService.Parameter
 {
-    public class InitializeStateMachineServices : MonoBehaviour,IStateMachineIntializer
+    public class StateMachineParameter : MonoBehaviour,IStateMachineParameter
     {
         [SerializeField]
-        private StateMachineServiceSettings m_serviceSettings;
-        public StateMachineServiceSettings ServiceSettings { set { m_serviceSettings = value; } }
+        private StateMachineParameterSettings m_serviceSettings;
+        public StateMachineParameterSettings ServiceSettings { set { m_serviceSettings = value; } }
 
         [SerializeField]
         private GameObject m_serviceLocator;
@@ -20,6 +17,18 @@ namespace StateMachineService.Settings
         [SerializeField]
         private Transform m_stateNodeRoot;
         public Transform StateNodeRoot { set { m_stateNodeRoot = value; } }
+
+        public IServiceLocator ServiceLocator{get{return serviceLocator;}}
+        private IServiceLocator serviceLocator = null;
+
+        public List<IStateNodeService> StateNodes{get{return stateNodes;}}
+        private List<IStateNodeService> stateNodes = null;        
+
+        public void Initialize()
+        {
+            serviceLocator = Get_ServiceLocator();
+            stateNodes = Get_StateNodeServices();
+        }
 
         public IServiceLocator Get_ServiceLocator()
         {

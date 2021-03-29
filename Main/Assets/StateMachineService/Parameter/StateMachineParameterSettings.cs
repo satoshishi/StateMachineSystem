@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace StateMachineService.Settings
+namespace StateMachineService.Parameter
 {
     [CreateAssetMenu(menuName = "StateMachineService/ServiceSettings")]    
-    public class StateMachineServiceSettings : ScriptableObject
+    public class StateMachineParameterSettings : ScriptableObject
     {
         [Header("State Node Settings")]
         [SerializeField]

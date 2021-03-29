@@ -4,27 +4,18 @@ using UnityEngine;
 using StateMachineService.StateNode;
 using StateMachineService.StateMachine;
 using StateMachineService.Locator;
+using StateMachineService.Parameter;
 
 namespace Sample.StateNode
 {
     public class MainState : MonoBehaviour, IStateNodeService
     {
-        public IServiceLocator Services
-        {
-            get { return services; }
-        }
-        private IServiceLocator services = null;
+        public StateNodeParamter Parameter{get{return parameter;}}
+        private StateNodeParamter parameter = null;
 
-        public IStateMachineService StateMachine
+        public void Initialize(StateNodeParamter _paramter)
         {
-            get { return stateMachine; }
-        }
-        public IStateMachineService stateMachine = null;
-
-        public void Initialize(IServiceLocator services, IStateMachineService stateMachine)
-        {
-            this.services = services;
-            this.stateMachine = stateMachine;
+            this.parameter = _paramter;
         }
 
         public void OnEnter(IStateNodeService from)

@@ -1,12 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEditor;
-using System.IO;
-using UnityEditor.Callbacks;
-using System;
-using System.Reflection;
-using StateMachineService.Settings;
+﻿using UnityEditor;
 
 namespace StateMachineService.Editor
 {

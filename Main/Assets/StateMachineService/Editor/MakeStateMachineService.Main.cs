@@ -6,7 +6,7 @@ using System.IO;
 using UnityEditor.Callbacks;
 using System;
 using System.Reflection;
-using StateMachineService.Settings;
+using StateMachineService.Parameter;
 
 namespace StateMachineService.Editor
 {
@@ -38,7 +38,7 @@ namespace StateMachineService.Editor
             GetWindow<MakeStateMachineService>("Make StateMachine");
         }
 
-        public StateMachineServiceSettings STMSettings
+        public StateMachineParameterSettings STMSettings
         {
             get;
             set;
@@ -99,7 +99,7 @@ namespace StateMachineService.Editor
         public void SelectSettingsFiles(GUIStyle style)
         {
             EditorGUILayout.LabelField("1. ScrptableObjectを選択する", style);
-            STMSettings = EditorGUILayout.ObjectField("STM Settings", STMSettings, typeof(StateMachineServiceSettings), true) as StateMachineServiceSettings;
+            STMSettings = EditorGUILayout.ObjectField("STM Settings", STMSettings, typeof(StateMachineParameterSettings), true) as StateMachineParameterSettings;
         }
 
         public void SelectMakeType(GUIStyle style, Action<MakeType> onChangeMakeType)
