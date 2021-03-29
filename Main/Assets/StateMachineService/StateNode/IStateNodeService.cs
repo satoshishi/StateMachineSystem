@@ -1,18 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using StateMachineService.StateParameterRepository;
 using StateMachineService.StateMachine;
+using StateMachineService.Locator;
 
 namespace StateMachineService.StateNode
 {
     public interface IStateNodeService
     {
-        IStateParameterRepository StateParameterRepository{get;}
+        IServiceLocator Services { get; }
 
-        IStateMachineService StateMachineService{get;}
+        IStateMachineService StateMachine{get;}
 
-        void Initialize(IStateParameterRepository stateParameterRepository, IStateMachineService stateMachineService);
+        void Initialize(IServiceLocator services , IStateMachineService stateMachine);
 
         void OnEnter(IStateNodeService from);
 

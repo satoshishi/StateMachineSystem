@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using StateMachineService.StateParameterRepository;
 using StateMachineService.StateNode;
 using StateMachineService.Settings;
+using StateMachineService.Locator;
 using PaupawsanSTM.Core;
 
 namespace StateMachineService.StateMachine
@@ -17,8 +17,8 @@ namespace StateMachineService.StateMachine
         public List<IStateNodeService> StateNodes { get { return stateNodes; } }
         private List<IStateNodeService> stateNodes = new List<IStateNodeService>();
 
-        public IStateParameterRepository StateParameterRepository { get { return stateParameterRepository; } }
-        private IStateParameterRepository stateParameterRepository = null;
+        public IServiceLocator Services { get { return services; } }
+        private IServiceLocator services = null;
 
         public IStateNodeService CurrentState {get;set;} = null;
 
@@ -26,7 +26,7 @@ namespace StateMachineService.StateMachine
 
         public virtual void Initialize<FIRST_STATE>(IStateMachineIntializer initService) where FIRST_STATE : IStateNodeService
         {
-            stateParameterRepository = initService.Get_StateParameterRepository();
+            services = initService.Get_ServiceLocator();
 
             stateNodes = initService.Get_StateNodeServices();
 
@@ -82,7 +82,7 @@ namespace StateMachineService.StateMachine
             {
                 case eStateNodeStatus.StateInitialize:
                     Debug.Log($"{node.GetType().BaseType}-{node.GetType()}-{stateStatus}");
-                    node?.Initialize(StateParameterRepository, this);
+                    node?.Initialize(services, this);
                     break;
 
                 case eStateNodeStatus.StateEnter:

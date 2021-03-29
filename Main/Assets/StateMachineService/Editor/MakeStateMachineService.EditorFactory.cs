@@ -19,10 +19,6 @@ namespace StateMachineService.Editor
 
             switch(type)
             {
-                case MakeType.Repository:
-                    editor = Resources.Load<StateParameterRepositoryEditorSettings>("StateParameterRepositoryEditorSettings");
-                break;
-
                 case MakeType.StateNode:
                     editor = Resources.Load<StateNodeServiceEditorSettings>("StateNodeServiceEditorSettings");
                 break;                
@@ -31,8 +27,8 @@ namespace StateMachineService.Editor
                     editor = Resources.Load<StateMachineServiceEditorSettings>("StateMachineServiceEditorSettings");
                 break;                      
 
-                case MakeType.StateParameter:
-                    editor = Resources.Load<StateParameterEditorSettings>("StateParameterEditorSettings");
+                case MakeType.Service:
+                    editor = Resources.Load<ServiceEditorSettings>("ServiceEditorSettings");
                 break;                                                
             }
 
