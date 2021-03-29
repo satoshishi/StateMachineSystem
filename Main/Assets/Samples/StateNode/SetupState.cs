@@ -3,33 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using StateMachineService.StateNode;
 using StateMachineService.StateMachine;
-using StateMachineService.StateParameterRepository;
+using StateMachineService.Locator;
 
 namespace Sample.StateNode
 {
     public class SetupState : MonoBehaviour, IStateNodeService
     {
-        public IStateParameterRepository StateParameterRepository
+        public IServiceLocator Services
         {
-            get { return stateParameterRepository; }
+            get { return services; }
         }
-        private IStateParameterRepository stateParameterRepository = null;
+        private IServiceLocator services = null;
 
-        public IStateMachineService StateMachineService
+        public IStateMachineService StateMachine
         {
-            get { return stateMachineService; }
+            get { return stateMachine; }
         }
-        public IStateMachineService stateMachineService = null;
+        public IStateMachineService stateMachine = null;
 
-        public void Initialize(IStateParameterRepository stateParameterRepository, IStateMachineService stateMachineService)
+        public void Initialize(IServiceLocator services, IStateMachineService stateMachine)
         {
-            this.stateParameterRepository = stateParameterRepository;
-            this.stateMachineService = stateMachineService;
+            this.services = services;
+            this.stateMachine = stateMachine;
         }
 
         public void OnEnter(IStateNodeService from)
         {
-
+            services.Get<PrefabRepositroy>().Print();
         }
 
         public void OnExit(IStateNodeService to)

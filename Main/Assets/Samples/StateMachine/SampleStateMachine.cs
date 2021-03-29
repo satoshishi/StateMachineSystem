@@ -12,7 +12,7 @@ namespace Sample.StateMachine
         // Start is called before the first frame update
         void Start()
         {
-            Initialize<MainState>(GetComponent<IStateMachineIntializer>());
+            Initialize<SetupState>(GetComponent<IStateMachineIntializer>());
         }
     }
 }

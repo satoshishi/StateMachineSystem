@@ -18,20 +18,6 @@ namespace StateMachineService.Editor
 
             switch (type)
             {
-                case MakeType.Repository:
-                    var repositoryEditor = Editor as StateParameterRepositoryEditorSettings;
-                    scriptService = new StateParameterRepositoryScriptCreateService()
-                    {
-                        ThisCommand = new StateParameterRepositoryScriptCreateService.Command()
-                        {
-                            FilePath = repositoryEditor.ScriptPath,
-                            ScriptTemp = repositoryEditor.ScriptTemp,
-                            ServiceName = repositoryEditor.ServiceName,
-                            STMSettings = this.STMSettings
-                        }
-                    };
-                    break;
-
                 case MakeType.StateNode:
                     var stateNodeEditor = Editor as StateNodeServiceEditorSettings;
                     scriptService = new StateNodeServiceScriptCreateService()
@@ -60,17 +46,17 @@ namespace StateMachineService.Editor
                     };
                     break;
 
-                case MakeType.StateParameter:
-                    var stateParameterEditor = Editor as StateParameterEditorSettings;
+                case MakeType.Service:
+                    var stateParameterEditor = Editor as ServiceEditorSettings;
                     scriptService = new StateParameterScriptCreateService()
                     {
                         ThisCommand = new StateParameterScriptCreateService.Command()
                         {
-                            EntityBaseScriptTemp = stateParameterEditor.EntityBaseScriptTemp,
-                            RepositoryScriptTemp = stateParameterEditor.RepositoryScriptTemp,
+                            ServiceScriptTemp = stateParameterEditor.ServiceScriptTemp,
+                            ServiceInstallerScriptTemp = stateParameterEditor.ServiceInstallerScriptTemp,
                             ServiceName = stateParameterEditor.ServiceName,
-                            FilePath = stateParameterEditor.ScriptPath,
-                            EntityName = stateParameterEditor.EntityName       
+                            ServiceTypeName = stateParameterEditor.ServiceTypeName,
+                            FilePath = stateParameterEditor.ScriptPath, 
                         }
                     };
                     break;                                        
@@ -85,19 +71,6 @@ namespace StateMachineService.Editor
 
             switch (type)
             {
-                case MakeType.Repository:
-                    var repositoryEditor = Editor as StateParameterRepositoryEditorSettings;
-                    prefabService = new StateParameterRepositoryPrefabCreateService()
-                    {
-                        ThisCommand = new StateParameterRepositoryPrefabCreateService.Command()
-                        {
-                            FilePath = repositoryEditor.ScriptPath,
-                            ServiceName = repositoryEditor.ServiceName,
-                            STMSettings = this.STMSettings
-                        }
-                    };
-                    break;
-
                 case MakeType.StateNode:
                     var stateNodeEditor = Editor as StateNodeServiceEditorSettings;
                     prefabService = new StateNodeServicePrefabCreateService()
@@ -124,15 +97,14 @@ namespace StateMachineService.Editor
                     };
                     break;                    
 
-                case MakeType.StateParameter:
-                    var stateParameterEditor = Editor as StateParameterEditorSettings;
+                case MakeType.Service:
+                    var stateParameterEditor = Editor as ServiceEditorSettings;
                     prefabService = new StateParameterPrefabCreateService()
                     {
                         ThisCommand = new StateParameterPrefabCreateService.Command()
                         {
                             ServiceName = stateParameterEditor.ServiceName,
                             FilePath = stateParameterEditor.ScriptPath,
-                            EntityName = stateParameterEditor.EntityName,
                             STMSettings = this.STMSettings
                         }
                     };

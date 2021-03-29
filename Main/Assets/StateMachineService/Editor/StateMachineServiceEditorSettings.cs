@@ -120,7 +120,7 @@ namespace StateMachineService.Editor
 
                     initServices.ServiceSettings = prefabCommand.STMSettings;
                     initServices.StateNodeRoot = game.transform.GetChild(0).transform;
-                    initServices.RepositoryRoot = game.transform;
+                 //   initServices.RepositoryRoot = game.transform;
                 }
 
                 var prefab = PrefabUtility.SaveAsPrefabAsset(game, prefabCommand.FilePath + "/" + prefabCommand.ServiceName + "StateMachine.prefab");

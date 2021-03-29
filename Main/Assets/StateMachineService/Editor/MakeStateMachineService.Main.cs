@@ -54,8 +54,7 @@ namespace StateMachineService.Editor
         {
             StateMachine,
             StateNode,
-            Repository,
-            StateParameter,
+            Service,
             None
         }
 

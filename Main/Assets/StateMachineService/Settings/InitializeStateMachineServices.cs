@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using StateMachineService.StateParameterRepository;
 using StateMachineService.StateParameter;
 using StateMachineService.StateNode;
+using StateMachineService.Locator;
+using System;
 
 namespace StateMachineService.Settings
 {
@@ -14,33 +15,30 @@ namespace StateMachineService.Settings
         public StateMachineServiceSettings ServiceSettings { set { m_serviceSettings = value; } }
 
         [SerializeField]
+        private GameObject m_serviceLocator;
+
+        [SerializeField]
         private Transform m_stateNodeRoot;
         public Transform StateNodeRoot { set { m_stateNodeRoot = value; } }
 
-        [SerializeField]
-        private Transform m_repositoryRoot;
-        public Transform RepositoryRoot { set { m_repositoryRoot = value; } }
-
-        public IStateParameterRepository Get_StateParameterRepository()
+        public IServiceLocator Get_ServiceLocator()
         {
-            var repositoryTransform = GameObject.Instantiate(m_serviceSettings.StateParameterRepository_GameObject, m_repositoryRoot).transform;
-            var stateParameterRepository = repositoryTransform.GetComponent<IStateParameterRepository>();
+            var serviceLocator = m_serviceLocator.GetComponent<IServiceLocator>();
 
-            if (stateParameterRepository == null)
-                Debug.LogError($"{m_serviceSettings.StateParameterRepository_GameObject.name} is not attach IStateParameterRepository");
+            if (serviceLocator == null)
+                Debug.LogError($"{m_serviceLocator.name} is not attach IServiceLocator");
 
-            var stateParameters = new List<IStateParameter>();
             foreach (GameObject target in m_serviceSettings.StateParameters_GameObject)
             {
-                var parameter = GameObject.Instantiate(target, repositoryTransform).GetComponent<IStateParameter>();
-                if (parameter == null)
-                    Debug.LogError($"{target.name} is not attach IStateParameter");
+                var intaller = GameObject.Instantiate(target, m_serviceLocator.transform).GetComponent<IPrefabServiceInstaller>();
+                if (intaller == null)
+                    Debug.LogError($"{target.name} is not attach IPrefabServiceInstaller");
 
-                stateParameters.Add(parameter);
+                var parameter = intaller.Install();
+                serviceLocator.Register(parameter.Key,parameter.Value);
             }      
 
-            stateParameterRepository.Initialize(stateParameters);
-            return stateParameterRepository;      
+            return serviceLocator;      
         }
 
         public List<IStateNodeService> Get_StateNodeServices()
