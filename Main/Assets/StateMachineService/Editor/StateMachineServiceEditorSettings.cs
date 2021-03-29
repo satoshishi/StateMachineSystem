@@ -6,7 +6,7 @@ using System.IO;
 using UnityEditor.Callbacks;
 using System;
 using System.Reflection;
-using StateMachineService.Settings;
+using StateMachineService.Parameter;
 using StateMachineService.StateMachine;
 
 
@@ -99,7 +99,7 @@ namespace StateMachineService.Editor
 
             public string ServiceName;
 
-            public StateMachineServiceSettings STMSettings;
+            public StateMachineParameterSettings STMSettings;
         }
 
         public FileCreateServiceCommand ThisCommand;
@@ -116,7 +116,7 @@ namespace StateMachineService.Editor
 
                 if (prefabCommand.STMSettings != null)
                 {                    
-                    var initServices = game.GetComponent<InitializeStateMachineServices>();
+                    var initServices = game.GetComponent<StateMachineParameter>();
 
                     initServices.ServiceSettings = prefabCommand.STMSettings;
                     initServices.StateNodeRoot = game.transform.GetChild(0).transform;

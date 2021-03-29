@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ScriptPath: 
   PrefabPath: 
-  ServiceInstallerScriptTemp: {fileID: 0}
-  ServiceScriptTemp: {fileID: 0}
+  ServiceInstallerScriptTemp: {fileID: 4900000, guid: d8635edd92c484dc7aa9b410112824c7,
+    type: 3}
+  ServiceScriptTemp: {fileID: 4900000, guid: 2be9f167bf9b84f1fb7c144cc5a1e7b1, type: 3}
   ServiceName: 
   ServiceTypeName: 

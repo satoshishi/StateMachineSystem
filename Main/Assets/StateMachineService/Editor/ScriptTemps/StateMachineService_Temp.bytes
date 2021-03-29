@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using StateMachineService.Settings;
+using StateMachineService.Parameter;
 using StateMachineService.StateMachine;
 using #SERVICE_NAME#.StateNode;
 
@@ -12,7 +12,7 @@ namespace #SERVICE_NAME#.StateMachine
         // Start is called before the first frame update
         void Start()
         {
-            Initialize<#FIRST_STATE_NODE#>(GetComponent<IStateMachineIntializer>());
+            Initialize<#FIRST_STATE_NODE#>(GetComponent<IStateMachineParameter>());
         }
     }
 }
