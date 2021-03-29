@@ -3,7 +3,7 @@ using UnityEngine;
 using StateMachineService.StateNode;
 using StateMachineService.Locator;
 
-namespace StateMachineService.Parameter
+namespace StateMachineService.StateMachine
 {
     public class StateMachineParameter : MonoBehaviour,IStateMachineParameter
     {
@@ -13,6 +13,9 @@ namespace StateMachineService.Parameter
 
         [SerializeField]
         private GameObject m_serviceLocator;
+
+        [SerializeField]
+        private GameObject m_stateMachine;
 
         [SerializeField]
         private Transform m_stateNodeRoot;
@@ -28,6 +31,15 @@ namespace StateMachineService.Parameter
         {
             serviceLocator = Get_ServiceLocator();
             stateNodes = Get_StateNodeServices();
+            RegisterStateMachineToSerViceLocator();
+        }
+
+        public void RegisterStateMachineToSerViceLocator()
+        {
+            var stateMachine = m_stateMachine.GetComponent<IStateMachineService>();
+            if(stateMachine == null) Debug.LogError($"{m_stateMachine.name} is not attach IStateMachineService");
+
+            serviceLocator.Register(typeof(IStateMachineService),stateMachine);
         }
 
         public IServiceLocator Get_ServiceLocator()
