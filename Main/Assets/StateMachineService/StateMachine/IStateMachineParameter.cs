@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using StateMachineService.StateNode;
 using StateMachineService.Locator;
 
-namespace StateMachineService.Parameter
+namespace StateMachineService.StateMachine
 {
     public interface IStateMachineParameter
     {

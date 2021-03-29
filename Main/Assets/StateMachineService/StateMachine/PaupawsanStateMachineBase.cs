@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using StateMachineService.StateNode;
-using StateMachineService.Parameter;
 using StateMachineService.Locator;
 using PaupawsanSTM.Core;
 
@@ -78,12 +77,7 @@ namespace StateMachineService.StateMachine
             {
                 case eStateNodeStatus.StateInitialize:
                     Debug.Log($"{node.GetType().BaseType}-{node.GetType()}-{stateStatus}");
-                    node?.Initialize(new StateNodeParamter(
-                        new StateNodeParamter.Command()
-                        {
-                            StateMachine = this,
-                            ServiceLocator = stateMachineParameter.ServiceLocator
-                        }));
+                    node?.Initialize(stateMachineParameter.ServiceLocator);
                     break;
 
                 case eStateNodeStatus.StateEnter:

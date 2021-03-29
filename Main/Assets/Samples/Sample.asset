@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Sample
   m_EditorClassIdentifier: 
   StateNodes_GameObject:
-  - {fileID: 8612927402764312210, guid: 3cdd4cebaf07e4c00b7ffe2e9611fd9d, type: 3}
-  - {fileID: 4630569513371195865, guid: ed661803d65674f38a109a1fea8cd0aa, type: 3}
-  - {fileID: 3553385119282644167, guid: 012bdb1f2d9044f048890f9a4b24b469, type: 3}
+  - {fileID: 7349038980268382811, guid: 3cdd4cebaf07e4c00b7ffe2e9611fd9d, type: 3}
+  - {fileID: 5064197636802889860, guid: ed661803d65674f38a109a1fea8cd0aa, type: 3}
+  - {fileID: 2875181942819050276, guid: 012bdb1f2d9044f048890f9a4b24b469, type: 3}
   StateParameters_GameObject:
   - {fileID: 6173903497277685666, guid: 80ba596afdcc740519087f94d2e4699b, type: 3}
