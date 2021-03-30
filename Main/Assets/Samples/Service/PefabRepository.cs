@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PrefabRepository : MonoBehaviour
+public class PefabRepository : MonoBehaviour
 {
 
 }

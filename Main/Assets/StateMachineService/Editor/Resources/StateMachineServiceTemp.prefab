@@ -45,9 +45,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55633a44c9c1044e484692649e7b9929, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_serviceLocatorGameObject: {fileID: 5517414015493055618}
+  m_stateMachineGameObject: {fileID: 1976782373102333950}
   m_serviceSettings: {fileID: 0}
-  m_serviceLocator: {fileID: 5517414015493055618}
-  m_stateMachine: {fileID: 1976782373102333950}
+  m_firstStateGameObject: {fileID: 0}
   m_stateNodeRoot: {fileID: 4182940210755556964}
 --- !u!1 &3358215402907901475
 GameObject:

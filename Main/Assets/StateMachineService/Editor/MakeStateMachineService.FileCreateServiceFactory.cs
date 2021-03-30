@@ -84,7 +84,8 @@ namespace StateMachineService.Editor
                         {
                             FilePath = stateMachineEditor.PrefabPath,
                             STMSettings = this.STMSettings,
-                            ServiceName = stateMachineEditor.ServiceName
+                            ServiceName = stateMachineEditor.ServiceName,
+                            FirstStateGameObject = stateMachineEditor.FirstStateGameObject
                         }
                     };
                     break;                    

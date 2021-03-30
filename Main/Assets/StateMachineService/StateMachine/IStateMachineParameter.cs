@@ -11,6 +11,8 @@ namespace StateMachineService.StateMachine
 
         List<IStateNodeService> StateNodes{get;}
 
+        IStateNodeService FirstState{get;}
+
         void Initialize();
     }
 }

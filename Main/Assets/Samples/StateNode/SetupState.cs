@@ -7,7 +7,7 @@ using StateMachineService.Locator;
 
 namespace Sample.StateNode
 {
-    public class SetUpState : MonoBehaviour, IStateNodeService
+    public class SetupState : MonoBehaviour, IStateNodeService
     {
         public IServiceLocator Services{get{return services;}}
         private IServiceLocator services = null;
@@ -19,7 +19,7 @@ namespace Sample.StateNode
 
         public void OnEnter(IStateNodeService from)
         {
-            
+
         }
 
         public void OnExit(IStateNodeService to)

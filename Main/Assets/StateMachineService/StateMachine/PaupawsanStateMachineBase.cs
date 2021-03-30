@@ -20,19 +20,19 @@ namespace StateMachineService.StateMachine
 
         public IStateNodeService PreviousState{get;set;} = null;
 
-        public virtual void Initialize<FIRST_STATE>(IStateMachineParameter paramter) where FIRST_STATE : IStateNodeService
+        public virtual void Initialize(IStateMachineParameter stmParamter)
         {
-            paramter.Initialize();
-            stateMachineParameter = paramter;
+            stmParamter.Initialize();
+            stateMachineParameter = stmParamter;
 
-            InitializeStateMachineCore<FIRST_STATE>();
+            InitializeStateMachineCore(stateMachineParameter.FirstState);
         }
 
-        public virtual void InitializeStateMachineCore<FIRST_STATE>() where FIRST_STATE : IStateNodeService
+        public virtual void InitializeStateMachineCore(IStateNodeService firstState)
         {
             stateMachineCore = new StateMachineCore<IStateNodeService>(UpdateStateNodeStatus, false);
             stateMachineParameter.StateNodes.ForEach(node => stateMachineCore.RegisterStateNode(node, new StateNodeCore<IStateNodeService>(node, stateMachineCore)));
-            if (TryGetStateNode<FIRST_STATE>(out IStateNodeService first_state))
+            if (TryGetStateNode(firstState,out IStateNodeService first_state))
             {
                 CurrentState = first_state;
                 PreviousState = first_state;
