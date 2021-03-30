@@ -7,7 +7,7 @@ using StateMachineService.Locator;
 
 namespace Sample.StateNode
 {
-    public class SignInState : MonoBehaviour, IStateNodeService
+    public class SigninState : MonoBehaviour, IStateNodeService
     {
         public IServiceLocator Services{get{return services;}}
         private IServiceLocator services = null;

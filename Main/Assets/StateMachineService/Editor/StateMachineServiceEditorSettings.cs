@@ -95,11 +95,14 @@ namespace StateMachineService.Editor
     {
         public class Command : FileCreateServiceCommand
         {
+            
             public string FilePath;
 
             public string ServiceName;
 
             public StateMachineParameterSettings STMSettings;
+
+            public GameObject FirstStateGameObject;
         }
 
         public FileCreateServiceCommand ThisCommand;
@@ -120,7 +123,10 @@ namespace StateMachineService.Editor
 
                     initServices.ServiceSettings = prefabCommand.STMSettings;
                     initServices.StateNodeRoot = game.transform.GetChild(0).transform;
-                 //   initServices.RepositoryRoot = game.transform;
+                    prefabCommand.STMSettings.FirstStateNodeGameObject = prefabCommand.FirstStateGameObject;
+
+                    EditorUtility.SetDirty(prefabCommand.STMSettings);
+                    AssetDatabase.SaveAssets();                    
                 }
 
                 var prefab = PrefabUtility.SaveAsPrefabAsset(game, prefabCommand.FilePath + "/" + prefabCommand.ServiceName + "StateMachine.prefab");

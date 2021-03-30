@@ -133,10 +133,10 @@ namespace StateMachineService.Editor
 
                     if (prefabCommand.STMSettings != null)
                     {
-                        if(prefabCommand.STMSettings.StateNodes_GameObject == null)
-                            prefabCommand.STMSettings.StateNodes_GameObject = new List<GameObject>();
+                        if(prefabCommand.STMSettings.StateNodesGameObject == null)
+                            prefabCommand.STMSettings.StateNodesGameObject = new List<GameObject>();
 
-                        prefabCommand.STMSettings.StateNodes_GameObject.Add(prefab);
+                        prefabCommand.STMSettings.StateNodesGameObject.Add(prefab);
                         EditorUtility.SetDirty(prefabCommand.STMSettings);
                         AssetDatabase.SaveAssets();
                     }

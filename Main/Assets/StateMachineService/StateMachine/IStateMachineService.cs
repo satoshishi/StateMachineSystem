@@ -10,8 +10,8 @@ namespace StateMachineService.StateMachine
     {
         IStateMachineParameter StateMachineParameter{get;}
 
-        void Initialize<FIRST_STATE>(IStateMachineParameter initService) where FIRST_STATE : IStateNodeService;        
-
+        void Initialize(IStateMachineParameter stmParamter);        
+        
         void UpdateState<STATE_NODE>() where STATE_NODE : IStateNodeService;
     }
 }

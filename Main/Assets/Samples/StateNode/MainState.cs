@@ -19,7 +19,7 @@ namespace Sample.StateNode
 
         public void OnEnter(IStateNodeService from)
         {
-            
+
         }
 
         public void OnExit(IStateNodeService to)

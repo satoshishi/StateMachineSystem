@@ -9,10 +9,14 @@ namespace StateMachineService.StateMachine
     {
         [Header("State Node Settings")]
         [SerializeField]
-        public List<GameObject> StateNodes_GameObject; 
+        public List<GameObject> StateNodesGameObject; 
 
-        [Header("State Parameter Settings")]  
+        [Header("First State Node Settings")]  
         [SerializeField]
-        public List<GameObject> StateParameters_GameObject;
+        public GameObject FirstStateNodeGameObject;                
+
+        [Header("Service Settings")]  
+        [SerializeField]
+        public List<GameObject> StateParametersGameObject;
     }
 }
