@@ -15,6 +15,5 @@ MonoBehaviour:
   ScriptPath: 
   PrefabPath: 
   ScriptTemp: {fileID: 4900000, guid: 4f7d75d3f7a0a4053bddef497e454c34, type: 3}
-  ServiceName: Sample
-  FirstStateGameObject: {fileID: 7349038980268382811, guid: 3cdd4cebaf07e4c00b7ffe2e9611fd9d,
-    type: 3}
+  ServiceName: 
+  FirstStateGameObject: {fileID: 0}

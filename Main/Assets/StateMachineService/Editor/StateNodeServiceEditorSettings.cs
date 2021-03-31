@@ -27,8 +27,8 @@ namespace StateMachineService.Editor
 
         public void Handle(GUIStyle style)
         {
-            EditorGUILayout.LabelField("3. サービス名を入力する", style);
-            ServiceName = EditorGUILayout.TextField("StateNode Name", ServiceName);
+            EditorGUILayout.LabelField("3. Namespace名を入力する(入力名.StateNode)で出力されます", style);
+            ServiceName = EditorGUILayout.TextField("Namespace Name", ServiceName);
 
             EditorGUILayout.LabelField("4. スクリプトのテンプレートを選択する", style);
             ScriptTemp = EditorGUILayout.ObjectField("Scirpt Template", ScriptTemp, typeof(TextAsset), true) as TextAsset;
