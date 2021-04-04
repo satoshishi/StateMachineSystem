@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace StateMachineService.StateMachine
 {
-    [CreateAssetMenu(menuName = "StateMachineService/ServiceSettings")]    
+    [CreateAssetMenu(menuName = "StateMachineService/StateMachineParameterSettings")]    
     public class StateMachineParameterSettings : ScriptableObject
     {
         [Header("State Node Settings")]

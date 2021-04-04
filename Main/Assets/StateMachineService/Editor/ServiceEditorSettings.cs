@@ -28,11 +28,11 @@ namespace StateMachineService.Editor
 
         public void Handle(GUIStyle style)
         {
-            EditorGUILayout.LabelField("4. 作成するサービス名を入力する", style);
-            ServiceName = EditorGUILayout.TextField("Service Name", ServiceName);
+            EditorGUILayout.LabelField("4. 作成するスクリプト名を入力する", style);
+            ServiceName = EditorGUILayout.TextField("Script Name", ServiceName);
 
-            EditorGUILayout.LabelField("5. サービスの基底クラスorそのクラス名を入力する", style);
-            ServiceTypeName = EditorGUILayout.TextField("Service Type Name", ServiceTypeName);
+            EditorGUILayout.LabelField("5. スクリプトが継承するの基底クラスorそのクラス名を入力する", style);
+            ServiceTypeName = EditorGUILayout.TextField("Type Name", ServiceTypeName);
 
             EditorGUILayout.LabelField("6. 作成するサービスのテンプレートを選択する", style);
             ServiceScriptTemp = EditorGUILayout.ObjectField("Service Scirpt Template", ServiceScriptTemp, typeof(TextAsset), true) as TextAsset;
