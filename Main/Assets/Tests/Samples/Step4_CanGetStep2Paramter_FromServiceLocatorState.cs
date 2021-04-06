@@ -4,10 +4,11 @@ using UnityEngine;
 using StateMachineService.StateNode;
 using StateMachineService.StateMachine;
 using StateMachineService.Locator;
+using UnityEngine.Assertions;
 
-namespace #SERVICE_NAME#.StateNode
+namespace Tests.StateNode
 {
-    public class #STATE_NAME#State : MonoBehaviour, IStateNodeService
+    public class Step4_CanGetStep2Paramter_FromServiceLocatorState : MonoBehaviour, IStateNodeService
     {
         public IStateMachineService StateMachine{get;}
         public IStateMachineService stateMachine = null;
@@ -24,7 +25,7 @@ namespace #SERVICE_NAME#.StateNode
 
         public void OnEnter(IStateNodeService from)
         {
-
+            Assert.IsNotNull(ServiceLocator.Get<Step3_CanRegistToServiceLocatorState.ITestParameter>());
         }
 
         public void OnExit(IStateNodeService to)

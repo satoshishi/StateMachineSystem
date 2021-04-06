@@ -5,9 +5,9 @@ using StateMachineService.StateNode;
 using StateMachineService.StateMachine;
 using StateMachineService.Locator;
 
-namespace #SERVICE_NAME#.StateNode
+namespace Tests.StateNode
 {
-    public class #STATE_NAME#State : MonoBehaviour, IStateNodeService
+    public class Step2_CanTransitionNextStateState : MonoBehaviour, IStateNodeService
     {
         public IStateMachineService StateMachine{get;}
         public IStateMachineService stateMachine = null;

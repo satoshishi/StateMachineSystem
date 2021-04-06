@@ -7,8 +7,6 @@ namespace StateMachineService.StateMachine
 {
     public interface IStateMachineParameter
     {
-        IServiceLocator ServiceLocator{get;}
-
         List<IStateNodeService> StateNodes{get;}
 
         IStateNodeService FirstState{get;}

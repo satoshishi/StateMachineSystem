@@ -12,8 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 249b2a532a93a4995b0e7f7c11033f6a, type: 3}
   m_Name: StateNodeServiceEditorSettings
   m_EditorClassIdentifier: 
-  ScriptPath: 
-  PrefabPath: 
+  ScriptPath: /Users/fujisawa-satoshi/Documents/StateMachineSystem/Main/Assets/Tests/Resources/TestSTM
+  PrefabPath: /Users/fujisawa-satoshi/Documents/StateMachineSystem/Main/Assets/Tests/Resources/TestSTM
   ScriptTemp: {fileID: 4900000, guid: fdaa074a458a646d4ba6ffd21602a4b7, type: 3}
-  ServiceName: 
-  StateNames: []
+  ServiceName: Test
+  StateNames:
+  - Step1_CanTransitionFirstState
+  - Step2_CanTransitionNextState
+  - Step3_CanRegistToServiceLocator
+  - Step4_CanGetStep2Paramter_FromServiceLocator
+  - Step5_CanGetPrefabParamter_FromServiceLocator

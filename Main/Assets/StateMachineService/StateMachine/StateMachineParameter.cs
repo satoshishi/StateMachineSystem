@@ -8,21 +8,17 @@ namespace StateMachineService.StateMachine
     public class StateMachineParameter : MonoBehaviour, IStateMachineParameter
     {
         [SerializeField]
-        private GameObject m_serviceLocatorGameObject;
+        private GameObject m_stateMachineGameObject;
 
         [SerializeField]
-        private GameObject m_stateMachineGameObject;
+        private Transform m_stateNodeRoot;     
+
+        [SerializeField]
+        private Transform m_prefabRoot;   
 
         [SerializeField]
         private StateMachineParameterSettings m_serviceSettings;
         public StateMachineParameterSettings ServiceSettings { set { m_serviceSettings = value; } }
-
-        [SerializeField]
-        private Transform m_stateNodeRoot;
-        public Transform StateNodeRoot { set { m_stateNodeRoot = value; } }
-
-        public IServiceLocator ServiceLocator { get { return serviceLocator; } }
-        private IServiceLocator serviceLocator = null;
 
         public List<IStateNodeService> StateNodes { get { return stateNodes; } }
         private List<IStateNodeService> stateNodes = null;
@@ -32,9 +28,10 @@ namespace StateMachineService.StateMachine
 
         public void Initialize()
         {
-            serviceLocator = Get_ServiceLocator();
             stateNodes = Get_StateNodeServices();
             firstState = Get_FirstStateNodeServices();
+
+            InstantiateAndRegisterServiceLocator_FromPrefab();                        
             RegisterStateMachineToSerViceLocator();
         }
 
@@ -43,27 +40,20 @@ namespace StateMachineService.StateMachine
             var stateMachine = m_stateMachineGameObject.GetComponent<IStateMachineService>();
             if (stateMachine == null) Debug.LogError($"{m_stateMachineGameObject.name} is not attach IStateMachineService");
 
-            serviceLocator.Register(typeof(IStateMachineService), stateMachine);
+            ServiceLocator.Register(typeof(IStateMachineService), stateMachine);
         }
 
-        public IServiceLocator Get_ServiceLocator()
+        public void InstantiateAndRegisterServiceLocator_FromPrefab()
         {
-            var serviceLocator = m_serviceLocatorGameObject.GetComponent<IServiceLocator>();
-
-            if (serviceLocator == null)
-                Debug.LogError($"{m_serviceLocatorGameObject.name} is not attach IServiceLocator");
-
             foreach (GameObject target in m_serviceSettings.StateParametersGameObject)
             {
-                var intaller = GameObject.Instantiate(target, m_serviceLocatorGameObject.transform).GetComponent<IPrefabServiceInstaller>();
-                if (intaller == null)
-                    Debug.LogError($"{target.name} is not attach IPrefabServiceInstaller");
-
-                var parameter = intaller.Install();
-                serviceLocator.Register(parameter.Key, parameter.Value);
+                var intaller = GameObject.Instantiate(target, m_prefabRoot.transform).GetComponent<IPrefabServiceInstaller>();
+                if (intaller != null)
+                {
+                    var parameter = intaller.Install();
+                    ServiceLocator.Register(parameter.Key, parameter.Value);
+                }
             }
-
-            return serviceLocator;
         }
 
         public List<IStateNodeService> Get_StateNodeServices()
@@ -85,15 +75,12 @@ namespace StateMachineService.StateMachine
 
         public IStateNodeService Get_FirstStateNodeServices()
         {
-            IStateNodeService _firstState = default;
-
-            var nodeObject = GameObject.Instantiate(m_serviceSettings.FirstStateNodeGameObject, m_stateNodeRoot);
-            _firstState = nodeObject.GetComponent<IStateNodeService>();
-
+            var _firstState = m_serviceSettings.FirstStateNodeGameObject.GetComponent<IStateNodeService>();
             if (_firstState == null)
                 Debug.LogError($"{m_serviceSettings.FirstStateNodeGameObject.name} is not attach IStateNodeService");
+            var targetState = StateNodes.Find(node => node.GetType() == _firstState.GetType());
 
-            return _firstState;
+            return targetState;
         }
     }
 }

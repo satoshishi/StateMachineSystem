@@ -5,9 +5,9 @@ using StateMachineService.StateNode;
 using StateMachineService.StateMachine;
 using StateMachineService.Locator;
 
-namespace #SERVICE_NAME#.StateNode
+namespace Tests.StateNode
 {
-    public class #STATE_NAME#State : MonoBehaviour, IStateNodeService
+    public class Step3_CanRegistToServiceLocatorState : MonoBehaviour, IStateNodeService
     {
         public IStateMachineService StateMachine{get;}
         public IStateMachineService stateMachine = null;
@@ -22,9 +22,22 @@ namespace #SERVICE_NAME#.StateNode
 
         }
 
+        public interface ITestParameter
+        {
+            string Get();
+        }
+
+        public class TestParameter : ITestParameter
+        {
+            public string Get()
+            {
+                return "Parameter";
+            }
+        }
+
         public void OnEnter(IStateNodeService from)
         {
-
+            ServiceLocator.Register<ITestParameter>(new TestParameter());
         }
 
         public void OnExit(IStateNodeService to)
