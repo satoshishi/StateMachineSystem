@@ -6,28 +6,28 @@ using System;
 namespace StateMachineService.Locator
 {
     //https://qiita.com/ozaki_shinya/items/9eb0f827caa6a4108888
-    public class ServiceLocator : MonoBehaviour, IServiceLocator
+    public static class ServiceLocator
     {
-        private Dictionary<Type, object> instanceDict = new Dictionary<Type, object>();
+        private static Dictionary<Type, object> instanceDict = new Dictionary<Type, object>();
 
-        private Dictionary<Type, Type> typeDict = new Dictionary<Type, Type>();
+        private static Dictionary<Type, Type> typeDict = new Dictionary<Type, Type>();
 
-        public void Register(Type type, object instance)
+        public static void Register(Type type, object instance)
         {
             instanceDict[type] = instance;
         }
 
-        public void Register<T>(object instance)
+        public static void Register<T>(object instance)
         {
             instanceDict[typeof(T)] = instance;
         }
 
-        public void Register<TContract, TConcrete>() where TContract : class
+        public static void Register<TContract, TConcrete>() where TContract : class
         {
             typeDict[typeof(TContract)] = typeof(TConcrete);
         }
 
-        public T Get<T>() where T : class
+        public static T Get<T>() where T : class
         {
             T instance = default;
 

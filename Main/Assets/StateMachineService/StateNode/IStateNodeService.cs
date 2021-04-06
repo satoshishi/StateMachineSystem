@@ -5,9 +5,9 @@ namespace StateMachineService.StateNode
 {
     public interface IStateNodeService
     {
-        IServiceLocator Services{get;}
+        IStateMachineService StateMachine{get;}
 
-        void Initialize(IServiceLocator services);
+        void Initialize(IStateMachineService stateMachine);
 
         void OnEnter(IStateNodeService from);
 

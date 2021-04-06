@@ -13,12 +13,12 @@ namespace StateMachineService.StateMachine
         public StateMachineCore<IStateNodeService> STMCore { get { return stateMachineCore; } }
         private StateMachineCore<IStateNodeService> stateMachineCore = null;
 
-        public IStateMachineParameter StateMachineParameter{get{return stateMachineParameter;}}
+        public IStateMachineParameter StateMachineParameter { get { return stateMachineParameter; } }
         private IStateMachineParameter stateMachineParameter = null;
 
-        public IStateNodeService CurrentState {get;set;} = null;
+        public IStateNodeService CurrentState { get; private set; } = null;
 
-        public IStateNodeService PreviousState{get;set;} = null;
+        public IStateNodeService PreviousState { get; private set; } = null;
 
         public virtual void Initialize(IStateMachineParameter stmParamter)
         {
@@ -32,7 +32,7 @@ namespace StateMachineService.StateMachine
         {
             stateMachineCore = new StateMachineCore<IStateNodeService>(UpdateStateNodeStatus, false);
             stateMachineParameter.StateNodes.ForEach(node => stateMachineCore.RegisterStateNode(node, new StateNodeCore<IStateNodeService>(node, stateMachineCore)));
-            if (TryGetStateNode(firstState,out IStateNodeService first_state))
+            if (TryGetStateNode(firstState, out IStateNodeService first_state))
             {
                 CurrentState = first_state;
                 PreviousState = first_state;
@@ -77,7 +77,7 @@ namespace StateMachineService.StateMachine
             {
                 case eStateNodeStatus.StateInitialize:
                     Debug.Log($"{node.GetType().BaseType}-{node.GetType()}-{stateStatus}");
-                    node?.Initialize(stateMachineParameter.ServiceLocator);
+                    node?.Initialize(this);
                     break;
 
                 case eStateNodeStatus.StateEnter:
@@ -105,12 +105,13 @@ namespace StateMachineService.StateMachine
 
         public virtual void UpdateState<NODE_TYPE>() where NODE_TYPE : IStateNodeService
         {
-            if (TryGetStateNode<NODE_TYPE>(out IStateNodeService service)){
+            if (TryGetStateNode<NODE_TYPE>(out IStateNodeService service))
+            {
 
                 PreviousState = CurrentState;
                 CurrentState = service;
 
-                STMCore.MoveState(service);   
+                STMCore.MoveState(service);
             }
         }
 

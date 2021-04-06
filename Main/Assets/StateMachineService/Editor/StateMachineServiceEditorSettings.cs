@@ -122,7 +122,7 @@ namespace StateMachineService.Editor
                     var initServices = game.GetComponent<StateMachineParameter>();
 
                     initServices.ServiceSettings = prefabCommand.STMSettings;
-                    initServices.StateNodeRoot = game.transform.GetChild(0).transform;
+                    //initServices.StateNodeRoot = game.transform.GetChild(0).transform;
                     prefabCommand.STMSettings.FirstStateNodeGameObject = prefabCommand.FirstStateGameObject;
 
                     EditorUtility.SetDirty(prefabCommand.STMSettings);
