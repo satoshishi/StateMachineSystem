@@ -31,16 +31,7 @@ namespace StateMachineService.StateMachine
             stateNodes = Get_StateNodeServices();
             firstState = Get_FirstStateNodeServices();
 
-            InstantiateAndRegisterServiceLocator_FromPrefab();                        
-            RegisterStateMachineToSerViceLocator();
-        }
-
-        public void RegisterStateMachineToSerViceLocator()
-        {
-            var stateMachine = m_stateMachineGameObject.GetComponent<IStateMachineService>();
-            if (stateMachine == null) Debug.LogError($"{m_stateMachineGameObject.name} is not attach IStateMachineService");
-
-            ServiceLocator.Register(typeof(IStateMachineService), stateMachine);
+            InstantiateAndRegisterServiceLocator_FromPrefab();
         }
 
         public void InstantiateAndRegisterServiceLocator_FromPrefab()
