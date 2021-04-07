@@ -1,0 +1,18 @@
+{
+    "name": "Test.StateNode",
+    "references": [
+        "GUID:5055d69c5a5634b0182496db015aa24e",
+        "GUID:7e4f351472212427ab482d0b3be94b9c",
+        "GUID:e4b5f3d75a10c41de92242dae9aa17fd",
+        "GUID:08542fc640c5f49c09151a154bd64131"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

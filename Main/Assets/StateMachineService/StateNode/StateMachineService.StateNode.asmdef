@@ -1,0 +1,15 @@
+{
+    "name": "StateMachineService.StateNode",
+    "references": [
+        "GUID:5055d69c5a5634b0182496db015aa24e"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -3,7 +3,13 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "Project"
+        "Tests.Service",
+        "Tests.S",
+        "Test.StateNode",
+        "StateMachineService.Locator",
+        "StateMachineService.Paupawsan",
+        "StateMachineService.StateNode",
+        "StateMachineService.Parameter"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

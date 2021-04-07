@@ -1,0 +1,16 @@
+{
+    "name": "Tests.S",
+    "references": [
+        "GUID:6579bdeac79444c899c2912ee1e6dbc8",
+        "GUID:c87d3710d15c2455394cf908996c8314"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

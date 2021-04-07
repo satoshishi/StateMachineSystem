@@ -8,7 +8,7 @@ using System;
 using System.Reflection;
 using StateMachineService.StateNode;
 using StateMachineService.StateMachine;
-
+using StateMachineService.StateMachine.Parameter;
 
 namespace StateMachineService.Editor
 {
@@ -123,7 +123,7 @@ namespace StateMachineService.Editor
 
                     initServices.ServiceSettings = prefabCommand.STMSettings;
                     //initServices.StateNodeRoot = game.transform.GetChild(0).transform;
-                    prefabCommand.STMSettings.FirstStateNodeGameObject = prefabCommand.FirstStateGameObject;
+                    prefabCommand.STMSettings.SetFirstStateNodeGameObject(prefabCommand.FirstStateGameObject);
 
                     EditorUtility.SetDirty(prefabCommand.STMSettings);
                     AssetDatabase.SaveAssets();                    

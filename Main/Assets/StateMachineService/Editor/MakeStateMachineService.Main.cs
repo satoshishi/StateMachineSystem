@@ -7,6 +7,7 @@ using UnityEditor.Callbacks;
 using System;
 using System.Reflection;
 using StateMachineService.StateMachine;
+using StateMachineService.StateMachine.Parameter;
 
 namespace StateMachineService.Editor
 {

@@ -1,13 +1,10 @@
-﻿using StateMachineService.StateMachine;
-using StateMachineService.Locator;
+﻿using StateMachineService.Locator;
 
 namespace StateMachineService.StateNode
 {
     public interface IStateNodeService
     {
-        IStateMachineService StateMachine{get;}
-
-        void Initialize(IStateMachineService stateMachine);
+        void Initialize();
 
         void OnEnter(IStateNodeService from);
 
