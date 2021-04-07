@@ -1,3 +1,4 @@
 # StateMachineSystem
 
-![stm2](https://user-images.githubusercontent.com/20067832/113700277-9f6ea980-9711-11eb-9d82-b3c9eaf3c0b7.png)
+![stm2](https://user-images.githubusercontent.com/20067832/113847787-c80aa800-97d2-11eb-88e1-46853230a842.png)
+
