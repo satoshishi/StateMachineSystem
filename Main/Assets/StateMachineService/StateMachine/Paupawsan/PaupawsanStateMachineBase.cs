@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using StateMachineService.StateNode;
@@ -31,58 +32,33 @@ namespace StateMachineService.StateMachine.Paupawsan
 
             stateMachineCore = new StateMachineCore<IStateNodeService>(UpdateStateNodeStatus, false);
             stateMachineParameter.StateNodes.ForEach(node => stateMachineCore.RegisterStateNode(node, new StateNodeCore<IStateNodeService>(node, stateMachineCore)));
-            if (TryGetStateNode(firstState, out IStateNodeService first_state))
+
+            var stateNode = stateMachineParameter.GetStateNode(firstState.GetType());
+            if (stateNode != null)
             {
-                CurrentState = first_state;
-                PreviousState = first_state;
-                StartCoroutine(STMCore.StartStateMachine(first_state));
+                CurrentState = stateNode;
+                PreviousState = stateNode;
+                StartCoroutine(STMCore.StartStateMachine(stateNode));
             }
-        }
-
-        protected virtual bool TryGetStateNode<NODE_TYPE>(out IStateNodeService service) where NODE_TYPE : IStateNodeService
-        {
-            var res = stateMachineParameter.StateNodes.Find(statenode => statenode is NODE_TYPE);
-
-            if (res != null)
-            {
-                service = ((NODE_TYPE)(res));
-                return true;
-            }
-
-            service = default;
-            return false;
-        }
-
-        protected virtual bool TryGetStateNode(IStateNodeService stateType, out IStateNodeService service)
-        {
-            var res = stateMachineParameter.StateNodes.Find(statenode => statenode.GetType().Equals(stateType.GetType()));
-
-            if (res != null)
-            {
-                service = res;
-                return true;
-            }
-
-            service = default;
-            return false;
         }
 
         protected virtual IEnumerator UpdateStateNodeStatus(IStateNodeService stateType, eStateNodeStatus stateStatus)
         {
-            if (!TryGetStateNode(stateType, out IStateNodeService node))
+            var stateNode = stateMachineParameter.GetStateNode(stateType.GetType());
+            if (stateNode == null)
                 yield break;
 
             switch (stateStatus)
             {
                 case eStateNodeStatus.StateInitialize:
-                    Debug.Log($"{node.GetType().BaseType}-{node.GetType()}-{stateStatus}");
-                    node?.Initialize();
+                    Debug.Log($"{stateNode.GetType().BaseType}-{stateNode.GetType()}-{stateStatus}");
+                    stateNode?.Initialize();
                     break;
 
                 case eStateNodeStatus.StateEnter:
 
-                    Debug.Log($"{node.GetType().BaseType}-{node.GetType()}-{stateStatus}");
-                    node?.OnEnter(PreviousState);
+                    Debug.Log($"{stateNode.GetType().BaseType}-{stateNode.GetType()}-{stateStatus}");
+                    stateNode?.OnEnter(PreviousState);
                     break;
 
                 case eStateNodeStatus.StateUpdate:
@@ -91,8 +67,8 @@ namespace StateMachineService.StateMachine.Paupawsan
                     break;
 
                 case eStateNodeStatus.StateExit:
-                    Debug.Log($"{node.GetType().BaseType}-{node.GetType()}-{stateStatus}");
-                    node?.OnExit(CurrentState);
+                    Debug.Log($"{stateNode.GetType().BaseType}-{stateNode.GetType()}-{stateStatus}");
+                    stateNode?.OnExit(CurrentState);
                     break;
 
                 case eStateNodeStatus.StateFinalize:
@@ -104,15 +80,31 @@ namespace StateMachineService.StateMachine.Paupawsan
 
         public virtual void UpdateState<NODE_TYPE>() where NODE_TYPE : IStateNodeService
         {
-            if (TryGetStateNode<NODE_TYPE>(out IStateNodeService service))
+            var stateNode = stateMachineParameter.GetStateNode<NODE_TYPE>();
+
+            if (stateNode != null)
             {
 
                 PreviousState = CurrentState;
-                CurrentState = service;
+                CurrentState = stateNode;
 
-                STMCore.MoveState(service);
+                STMCore.MoveState(stateNode);
             }
         }
+
+        public virtual void UpdateState(Type type)
+        {
+            var stateNode = stateMachineParameter.GetStateNode(type);
+
+            if (stateNode != null)
+            {
+
+                PreviousState = CurrentState;
+                CurrentState = stateNode;
+
+                STMCore.MoveState(stateNode);
+            }
+        }        
 
         public virtual void ShutdownSTM()
         {

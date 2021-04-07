@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System;
 using UnityEngine;
 using StateMachineService.StateNode;
 using StateMachineService.Locator;
@@ -13,6 +14,9 @@ namespace StateMachineService.StateMachine.Parameter
 
         [SerializeField]
         private Transform m_prefabRoot;   
+        
+        public IStateNodeService FirstState { get { return firstState; } }
+        private IStateNodeService firstState = null;        
 
         [SerializeField]
         private StateMachineParameterSettings m_serviceSettings;
@@ -21,8 +25,19 @@ namespace StateMachineService.StateMachine.Parameter
         public List<IStateNodeService> StateNodes { get { return stateNodes; } }
         private List<IStateNodeService> stateNodes = null;
 
-        public IStateNodeService FirstState { get { return firstState; } }
-        private IStateNodeService firstState = null;
+        public IStateNodeService GetStateNode<STATE_NODE>() where STATE_NODE : IStateNodeService
+        {
+            var res = StateNodes.Find(statenode => statenode.GetType() == typeof(STATE_NODE));
+
+            return res == null ? null : res;
+        }        
+
+        public IStateNodeService GetStateNode(Type type)
+        {
+            var res = StateNodes.Find(statenode => statenode.GetType() == type);
+
+            return res == null ? null : res;
+        }               
 
         private void Awake()
         {
