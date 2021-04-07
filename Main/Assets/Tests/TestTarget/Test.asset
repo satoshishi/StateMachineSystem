@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 193747c26644145e8a606bc62b83f034, type: 3}
+  m_Name: Test
+  m_EditorClassIdentifier: 
+  stateNodesGameObject:
+  - {fileID: 3554690427269323537, guid: 98d23d27a0e164edf957ec2888754d3c, type: 3}
+  - {fileID: 8643802905213930790, guid: f1e740ae9cef34df9ad71b420fd641d7, type: 3}
+  - {fileID: 5984409866730813921, guid: 807cfb5d096b340138f4ab740f2b4801, type: 3}
+  - {fileID: 4981020884116709983, guid: d4880cd36e2b14178ae7520161ab643b, type: 3}
+  - {fileID: 396071554663621761, guid: 2b51b8dd6f9bd45adae14593ebf90d6f, type: 3}
+  firstStateNodeGameObject: {fileID: 3554690427269323537, guid: 98d23d27a0e164edf957ec2888754d3c,
+    type: 3}
+  stateParametersGameObject:
+  - {fileID: 1183051033113224092, guid: f015057416b0d41beabac1010538033e, type: 3}

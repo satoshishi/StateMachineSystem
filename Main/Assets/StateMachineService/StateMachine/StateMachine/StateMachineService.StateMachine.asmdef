@@ -1,0 +1,16 @@
+{
+    "name": "StateMachineService.StateMachine",
+    "references": [
+        "GUID:735a7df2bc2274ccf95ee9720b9e08b4",
+        "GUID:e4b5f3d75a10c41de92242dae9aa17fd"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

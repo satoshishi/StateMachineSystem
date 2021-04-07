@@ -9,14 +9,6 @@ namespace #SERVICE_NAME#.StateNode
 {
     public class #STATE_NAME#State : MonoBehaviour, IStateNodeService
     {
-        public IStateMachineService StateMachine{get;}
-        public IStateMachineService stateMachine = null;
-
-        public void Initialize(IStateMachineService stateMachine)
-        {
-            this.stateMachine = stateMachine;
-        }
-
         public void Initialize()
         {
 

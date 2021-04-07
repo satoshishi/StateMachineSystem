@@ -7,6 +7,7 @@ using UnityEditor.Callbacks;
 using System;
 using System.Reflection;
 using StateMachineService.StateMachine;
+using StateMachineService.StateMachine.Parameter;
 using System.Text.RegularExpressions;
 
 namespace StateMachineService.Editor
@@ -134,7 +135,7 @@ namespace StateMachineService.Editor
                 if (prefabCommand.STMSettings != null)
                 {
                     if (prefabCommand.STMSettings.StateParametersGameObject == null)
-                        prefabCommand.STMSettings.StateParametersGameObject = new List<GameObject>();
+                        prefabCommand.STMSettings.SetStateNodesGameObject(new List<GameObject>());
 
                     prefabCommand.STMSettings.StateParametersGameObject.Add(prefab);
                     EditorUtility.SetDirty(prefabCommand.STMSettings);
