@@ -23,6 +23,26 @@ namespace Tests
             stm = GameObject.Instantiate(prefab).GetComponent<PaupawsanStateMachineBase>();
         }
 
+        [UnityTest]
+        public IEnumerator StateNodeの取得テスト()
+        {
+            yield return null;
+
+            IStateMachineParameter parameter = ServiceLocator.Get<IStateMachineParameter>();
+
+            var pattern1 = parameter.GetStateNode<DummyState>();
+            Assert.IsNull(pattern1);
+
+            var pattern2 = parameter.GetStateNode(typeof(DummyState));
+            Assert.IsNull(pattern2);
+
+            var pattern3 = parameter.GetStateNode(typeof(Step1_CanTransitionFirstStateState));
+            Assert.IsNotNull(pattern3); 
+
+            var pattern4 = parameter.GetStateNode(typeof(Step1_CanTransitionFirstStateState));
+            Assert.IsNotNull(pattern4);                        
+        }
+
         // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
         // `yield return null;` to skip a frame.
         [UnityTest]
