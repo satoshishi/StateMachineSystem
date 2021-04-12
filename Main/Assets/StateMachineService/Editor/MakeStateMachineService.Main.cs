@@ -55,7 +55,6 @@ namespace StateMachineService.Editor
         {
             StateMachine,
             StateNode,
-            Service,
             None
         }
 

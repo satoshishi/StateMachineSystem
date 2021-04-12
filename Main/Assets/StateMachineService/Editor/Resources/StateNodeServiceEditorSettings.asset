@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 249b2a532a93a4995b0e7f7c11033f6a, type: 3}
   m_Name: StateNodeServiceEditorSettings
   m_EditorClassIdentifier: 
-  ScriptPath: 0
-  PrefabPath: 0
+  ScriptPath: 
+  PrefabPath: 
   ScriptTemp: {fileID: 4900000, guid: fdaa074a458a646d4ba6ffd21602a4b7, type: 3}
   ServiceName: 0
   StateNames: []

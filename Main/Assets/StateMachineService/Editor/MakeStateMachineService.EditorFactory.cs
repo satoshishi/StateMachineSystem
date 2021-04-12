@@ -19,10 +19,6 @@ namespace StateMachineService.Editor
                 case MakeType.StateMachine:
                     editor = Resources.Load<StateMachineServiceEditorSettings>("StateMachineServiceEditorSettings");
                 break;                      
-
-                case MakeType.Service:
-                    editor = Resources.Load<ServiceEditorSettings>("ServiceEditorSettings");
-                break;                                                
             }
 
             return editor;
