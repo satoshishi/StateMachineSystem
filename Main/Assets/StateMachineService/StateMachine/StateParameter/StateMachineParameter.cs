@@ -45,8 +45,8 @@ namespace StateMachineService.StateMachine.Parameter
         {
             stateNodes = Get_StateNodeServices(command);
             firstState = Get_FirstStateNodeServices(command);
-            InstantiateAndRegistServiceLocator_FromPrefab(command);
             RegistServiceLocator_NotPrefab(command); 
+            InstantiateAndRegistServiceLocator_FromPrefab(command);
 
             ServiceLocator.Register<IStateMachineParameter>(this);
         }
