@@ -45,12 +45,18 @@ namespace StateMachineService.StateMachine.Parameter
         {
             stateNodes = Get_StateNodeServices(command);
             firstState = Get_FirstStateNodeServices(command);
-            InstantiateAndRegisterServiceLocator_FromPrefab(command);
+            InstantiateAndRegistServiceLocator_FromPrefab(command);
+            RegistServiceLocator_NotPrefab(command); 
 
             ServiceLocator.Register<IStateMachineParameter>(this);
         }
 
-        protected virtual void InstantiateAndRegisterServiceLocator_FromPrefab(Command command)
+        protected virtual void RegistServiceLocator_NotPrefab(Command command)
+        {
+
+        }
+
+        protected virtual void InstantiateAndRegistServiceLocator_FromPrefab(Command command)
         {
             foreach (GameObject target in command.serviceSettings.StateParametersGameObject)
             {
