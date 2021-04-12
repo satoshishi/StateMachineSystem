@@ -36,22 +36,7 @@ namespace StateMachineService.Editor
                             FirstStateGameObject = stateMachineEditor.FirstStateGameObject
                         }
                     };
-                    break;
-
-                case MakeType.Service:
-                    var stateParameterEditor = Editor as ServiceEditorSettings;
-                    scriptService = new StateParameterScriptCreateService()
-                    {
-                        ThisCommand = new StateParameterScriptCreateService.Command()
-                        {
-                            ServiceScriptTemp = stateParameterEditor.ServiceScriptTemp,
-                            ServiceInstallerScriptTemp = stateParameterEditor.ServiceInstallerScriptTemp,
-                            ServiceName = stateParameterEditor.ServiceName,
-                            ServiceTypeName = stateParameterEditor.ServiceTypeName,
-                            FilePath = stateParameterEditor.ScriptPath, 
-                        }
-                    };
-                    break;                                        
+                    break;               
             }
 
             return scriptService;
@@ -89,19 +74,6 @@ namespace StateMachineService.Editor
                         }
                     };
                     break;                    
-
-                case MakeType.Service:
-                    var stateParameterEditor = Editor as ServiceEditorSettings;
-                    prefabService = new StateParameterPrefabCreateService()
-                    {
-                        ThisCommand = new StateParameterPrefabCreateService.Command()
-                        {
-                            ServiceName = stateParameterEditor.ServiceName,
-                            FilePath = stateParameterEditor.ScriptPath,
-                            STMSettings = this.STMSettings
-                        }
-                    };
-                    break;                                        
             }
 
             return prefabService;

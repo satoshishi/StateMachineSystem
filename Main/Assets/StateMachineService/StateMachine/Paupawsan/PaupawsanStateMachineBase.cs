@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using StateMachineService.StateNode;
-using StateMachineService.StateMachine.Parameter;
 using StateMachineService.Locator;
+using StateMachineService.StateMachine.Parameter;
 using Paupawsan;
 
 namespace StateMachineService.StateMachine.Paupawsan
@@ -20,9 +20,10 @@ namespace StateMachineService.StateMachine.Paupawsan
         public IStateNodeService CurrentState { get; private set; } = null;
         public IStateNodeService PreviousState { get; private set; } = null;
 
-        protected virtual void Initialize()
+        protected virtual void Initialize(IStateMachineParameter parameter)
         {
-            stateMachineParameter = ServiceLocator.Get<IStateMachineParameter>();
+            parameter.Initialize();
+            stateMachineParameter = parameter;
             InitializeStateMachineCore(stateMachineParameter.FirstState);
         }
 

@@ -110,7 +110,7 @@ namespace Tests
 
             while(true)
             {
-                if(ServiceLocator.Get<UIService>().Value >= 1f)
+                if(ServiceLocator.Get<Pattern1>().Value >= 1f)
                     break;
                 yield return null;
             }

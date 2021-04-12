@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using StateMachineService.Locator;
 
-public class UIService : MonoBehaviour
+[AutoRegistOnPrefabScript(typeof(Pattern1))]
+public class Pattern1 : MonoBehaviour
 {
     [SerializeField]
     private Slider slider;

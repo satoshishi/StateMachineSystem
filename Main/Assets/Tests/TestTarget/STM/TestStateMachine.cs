@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using StateMachineService.StateMachine.Paupawsan;
+using StateMachineService.StateMachine.Parameter;
 using Test.StateNode;
 
 namespace Test.StateMachine
@@ -11,7 +12,7 @@ namespace Test.StateMachine
         // Start is called before the first frame update
         void Start()
         {
-            Initialize();
+            Initialize(this.GetComponent<IStateMachineParameter>());
         }
     }
 }

@@ -22,3 +22,5 @@ MonoBehaviour:
     type: 3}
   stateParametersGameObject:
   - {fileID: 1183051033113224092, guid: f015057416b0d41beabac1010538033e, type: 3}
+  - {fileID: 4370230249113061324, guid: 5a3fa910cbc86488c9cc9bb0839bb9fe, type: 3}
+  - {fileID: 5558789908023860644, guid: 650b2ab67d4684438bffc5c438c86b54, type: 3}

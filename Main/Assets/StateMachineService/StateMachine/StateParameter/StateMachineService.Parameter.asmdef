@@ -1,8 +1,8 @@
 {
     "name": "StateMachineService.Parameter",
     "references": [
-        "GUID:e4b5f3d75a10c41de92242dae9aa17fd",
-        "GUID:5055d69c5a5634b0182496db015aa24e"
+        "GUID:5055d69c5a5634b0182496db015aa24e",
+        "GUID:e4b5f3d75a10c41de92242dae9aa17fd"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

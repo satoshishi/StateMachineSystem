@@ -16,7 +16,10 @@ namespace Test.StateNode
 
         public void OnEnter(IStateNodeService from)
         {
-            ServiceLocator.Get<UIService>().Value = 1f;
+            ServiceLocator.Get<IPattern2>().Print();
+            ServiceLocator.Get<Pattern3>().Print();
+            ServiceLocator.Get<Pattern4>().Print();
+            ServiceLocator.Get<Pattern1>().Value = 1f;
         }
 
         public void OnExit(IStateNodeService to)
