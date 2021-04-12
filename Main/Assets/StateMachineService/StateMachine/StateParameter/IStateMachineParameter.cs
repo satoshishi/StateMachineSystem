@@ -15,5 +15,7 @@ namespace StateMachineService.StateMachine.Parameter
         IStateNodeService GetStateNode(Type stateType);
 
         IStateNodeService FirstState{get;}
+
+        void Initialize();
     }
 }

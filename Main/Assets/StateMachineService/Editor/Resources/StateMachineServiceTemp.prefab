@@ -45,10 +45,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55633a44c9c1044e484692649e7b9929, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_stateMachineGameObject: {fileID: 4244732132472608415}
-  m_stateNodeRoot: {fileID: 8147245345504458937}
-  m_prefabRoot: {fileID: 5934098053900789503}
-  m_serviceSettings: {fileID: 0}
+  command:
+    stateNodeRoot: {fileID: 8147245345504458937}
+    prefabRoot: {fileID: 5934098053900789503}
+    serviceSettings: {fileID: 0}
 --- !u!1 &5832043201328090114
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,7 +7,6 @@ using UnityEditor.Callbacks;
 using System;
 using System.Reflection;
 using StateMachineService.StateNode;
-using StateMachineService.StateMachine;
 using StateMachineService.StateMachine.Parameter;
 
 namespace StateMachineService.Editor
@@ -121,7 +120,7 @@ namespace StateMachineService.Editor
                 {                    
                     var initServices = game.GetComponent<StateMachineParameter>();
 
-                    initServices.ServiceSettings = prefabCommand.STMSettings;
+                    initServices.GetCommand().serviceSettings = prefabCommand.STMSettings;
                     //initServices.StateNodeRoot = game.transform.GetChild(0).transform;
                     prefabCommand.STMSettings.SetFirstStateNodeGameObject(prefabCommand.FirstStateGameObject);
 

@@ -9,6 +9,7 @@
         "StateMachineService.Locator",
         "StateMachineService.Paupawsan",
         "StateMachineService.StateNode",
+        "StateMachineService.StateMachine",
         "StateMachineService.Parameter"
     ],
     "includePlatforms": [],
