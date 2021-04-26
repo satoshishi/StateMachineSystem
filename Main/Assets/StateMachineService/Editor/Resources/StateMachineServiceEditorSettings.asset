@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ScriptPath: 
   PrefabPath: 
-  ScriptTemp: {fileID: 4900000, guid: 4f7d75d3f7a0a4053bddef497e454c34, type: 3}
+  STMScriptTemp: {fileID: 4900000, guid: 4f7d75d3f7a0a4053bddef497e454c34, type: 3}
+  InstallerScriptTemp: {fileID: 4900000, guid: a7d92a86ad18b40ffa3a34efb81873ac, type: 3}
   ServiceName: 
   FirstStateGameObject: {fileID: 0}

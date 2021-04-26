@@ -8,19 +8,18 @@ using Test.StateNode;
 using StateMachineService.StateMachine.Paupawsan;
 using StateMachineService.Locator;
 using StateMachineService.StateNode;
-using StateMachineService.StateMachine.Parameter;
 
 namespace Tests
 {
     public class STMTest
     {
-        private PaupawsanStateMachineBase stm;
+        private PaupawsanStateMachine stm;
 
         [OneTimeSetUp]
         public void Initialize() 
         {
             var prefab = Resources.Load("TestsSTM/TestStateMachine") as GameObject;
-            stm = GameObject.Instantiate(prefab).GetComponent<PaupawsanStateMachineBase>();
+            stm = GameObject.Instantiate(prefab).GetComponent<PaupawsanStateMachine>();
         }
 
         [UnityTest]
@@ -28,7 +27,7 @@ namespace Tests
         {
             yield return null;
 
-            IStateMachineParameter parameter = ServiceLocator.Get<IStateMachineParameter>();
+            IStateNodeList parameter = ServiceLocator.Get<IStateNodeList>();
 
             var pattern1 = parameter.GetStateNode<DummyState>();
             Assert.IsNull(pattern1);
@@ -61,7 +60,7 @@ namespace Tests
             yield return null;
 
             stm.UpdateState<Step2_CanTransitionUserStep3StateState>();
-            var step3 = ServiceLocator.Get<IStateMachineParameter>().StateNodes.Find(s => s.GetType() == typeof(Step3_CanRegisterAnyInstanceToServiceLocatorState)) as Step3_CanRegisterAnyInstanceToServiceLocatorState;
+            var step3 = ServiceLocator.Get<IStateNodeList>().StateNodes.Find(s => s.GetType() == typeof(Step3_CanRegisterAnyInstanceToServiceLocatorState)) as Step3_CanRegisterAnyInstanceToServiceLocatorState;
 
             while(true)
             {
@@ -89,7 +88,7 @@ namespace Tests
             yield return null;
 
             stm.UpdateState<Step4_CanGetAnyInstanceToServiceLocatorState>();
-            var step4 = ServiceLocator.Get<IStateMachineParameter>().StateNodes.Find(s => s.GetType() == typeof(Step4_CanGetAnyInstanceToServiceLocatorState)) as Step4_CanGetAnyInstanceToServiceLocatorState;
+            var step4 = ServiceLocator.Get<IStateNodeList>().StateNodes.Find(s => s.GetType() == typeof(Step4_CanGetAnyInstanceToServiceLocatorState)) as Step4_CanGetAnyInstanceToServiceLocatorState;
 
             while(true)
             {

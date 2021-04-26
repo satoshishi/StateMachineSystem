@@ -1,13 +1,13 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace StateMachineService.StateMachine.Parameter
+namespace StateMachineService.StateNode
 {
-    [CreateAssetMenu(menuName = "StateMachineService/StateMachineParameterSettings")]
-    public class StateMachineParameterSettings : ScriptableObject
+    [CreateAssetMenu(menuName = "StateMachineService/StateNodeSettings")]
+    public class StateNodeSettings : ScriptableObject
     {
-        [Header("State Node Settings")]
+        [Header("StateNodes")]
         [SerializeField]
         private List<GameObject> stateNodesGameObject;
         public List<GameObject> StateNodesGameObject { get { return stateNodesGameObject; } }
@@ -17,7 +17,7 @@ namespace StateMachineService.StateMachine.Parameter
             this.stateNodesGameObject = stateNodesGameObject;
         }
 
-        [Header("First State Node Settings")]
+        [Header("First StateNode")]
         [SerializeField]
         private GameObject firstStateNodeGameObject;
         public GameObject FirstStateNodeGameObject { get { return firstStateNodeGameObject; } }
@@ -27,14 +27,6 @@ namespace StateMachineService.StateMachine.Parameter
             this.firstStateNodeGameObject = firstStateNodeGameObject;
         }
 
-        [Header("Service Settings")]
-        [SerializeField]
-        private List<GameObject> stateParametersGameObject;
-        public List<GameObject> StateParametersGameObject { get { return stateParametersGameObject; } }
-
-        public void SetStateParametersGameObject(List<GameObject> stateParametersGameObject)
-        {
-            this.stateParametersGameObject = stateParametersGameObject;
-        }
     }
+
 }
