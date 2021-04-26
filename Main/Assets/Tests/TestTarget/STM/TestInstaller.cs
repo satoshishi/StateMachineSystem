@@ -9,7 +9,7 @@ namespace Test.Locator
     {
         protected override void Install_Instance()
         {
-        
+            ServiceLocator.Register<IAnyParameter>(new AnyParameter());
         }
     }
 }

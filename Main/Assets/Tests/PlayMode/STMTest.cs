@@ -8,6 +8,7 @@ using Test.StateNode;
 using StateMachineService.StateMachine.Paupawsan;
 using StateMachineService.Locator;
 using StateMachineService.StateNode;
+using Test;
 
 namespace Tests
 {
@@ -16,7 +17,7 @@ namespace Tests
         private PaupawsanStateMachine stm;
 
         [OneTimeSetUp]
-        public void Initialize() 
+        public void Initialize()
         {
             var prefab = Resources.Load("TestsSTM/TestStateMachine") as GameObject;
             stm = GameObject.Instantiate(prefab).GetComponent<PaupawsanStateMachine>();
@@ -36,10 +37,10 @@ namespace Tests
             Assert.IsNull(pattern2);
 
             var pattern3 = parameter.GetStateNode(typeof(Step1_CanTransitionFirstStateState));
-            Assert.IsNotNull(pattern3); 
+            Assert.IsNotNull(pattern3);
 
             var pattern4 = parameter.GetStateNode(typeof(Step1_CanTransitionFirstStateState));
-            Assert.IsNotNull(pattern4);                        
+            Assert.IsNotNull(pattern4);
         }
 
         // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
@@ -49,7 +50,7 @@ namespace Tests
         {
             yield return null;
 
-            Assert.AreEqual(typeof(Step1_CanTransitionFirstStateState),stm.CurrentState.GetType());
+            Assert.AreEqual(typeof(Step1_CanTransitionFirstStateState), stm.CurrentState.GetType());
         }
 
         // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
@@ -62,13 +63,13 @@ namespace Tests
             stm.UpdateState<Step2_CanTransitionUserStep3StateState>();
             var step3 = ServiceLocator.Get<IStateNodeList>().StateNodes.Find(s => s.GetType() == typeof(Step3_CanRegisterAnyInstanceToServiceLocatorState)) as Step3_CanRegisterAnyInstanceToServiceLocatorState;
 
-            while(true)
+            while (true)
             {
-                if(step3.IsTransition)
+                if (step3.IsTransition)
                     break;
                 yield return null;
             }
-        }        
+        }
 
         // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
         // `yield return null;` to skip a frame.
@@ -77,8 +78,8 @@ namespace Tests
         {
             yield return null;
 
-            Assert.IsNotNull(ServiceLocator.Get<Step3_CanRegisterAnyInstanceToServiceLocatorState.IAnyParameter>());
-        } 
+            Assert.IsNotNull(ServiceLocator.Get<IAnyParameter>());
+        }
 
         // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
         // `yield return null;` to skip a frame.
@@ -90,9 +91,9 @@ namespace Tests
             stm.UpdateState<Step4_CanGetAnyInstanceToServiceLocatorState>();
             var step4 = ServiceLocator.Get<IStateNodeList>().StateNodes.Find(s => s.GetType() == typeof(Step4_CanGetAnyInstanceToServiceLocatorState)) as Step4_CanGetAnyInstanceToServiceLocatorState;
 
-            while(true)
+            while (true)
             {
-                if(step4.anyParameter != null)
+                if (step4.anyParameter != null)
                     break;
                 yield return null;
             }
@@ -107,12 +108,12 @@ namespace Tests
 
             stm.UpdateState<Step5_CanGetUIInstanceToServiceLocatorState>();
 
-            while(true)
+            while (true)
             {
-                if(ServiceLocator.Get<Pattern1>().Value >= 1f)
+                if (ServiceLocator.Get<Pattern1>().Value >= 1f)
                     break;
                 yield return null;
             }
-        }                          
+        }
     }
 }
