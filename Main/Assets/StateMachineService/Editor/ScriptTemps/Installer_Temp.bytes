@@ -1,0 +1,15 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using StateMachineService.Locator;
+
+namespace #SERVICE_NAME#.Locator
+{
+    public class #SERVICE_NAME#Installer : Installer
+    {
+        protected override void Install_Instance()
+        {
+        
+        }
+    }
+}

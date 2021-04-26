@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9058463040914890947}
-  - component: {fileID: 3181661709061599426}
+  - component: {fileID: 6968263788381386368}
   m_Layer: 0
   m_Name: StateMachineServiceTemp
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3181661709061599426
+--- !u!114 &6968263788381386368
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,13 +42,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4244732132472608415}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55633a44c9c1044e484692649e7b9929, type: 3}
+  m_Script: {fileID: 11500000, guid: 5e30e0245d3104c46bf12842c222cf7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  command:
-    stateNodeRoot: {fileID: 8147245345504458937}
-    prefabRoot: {fileID: 5934098053900789503}
-    serviceSettings: {fileID: 0}
+  m_settings: {fileID: 0}
+  m_stateNodeRoot: {fileID: 8147245345504458937}
 --- !u!1 &5832043201328090114
 GameObject:
   m_ObjectHideFlags: 0
@@ -89,7 +87,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5934098053900789503}
   m_Layer: 0
-  m_Name: Prefabs
+  m_Name: Services
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

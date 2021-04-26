@@ -16,19 +16,9 @@ namespace Test.StateNode
 
         }
 
-        public interface IAnyParameter
-        {
-            
-        }
-        public class AnyParameter : IAnyParameter
-        {
-
-        }
-
         public void OnEnter(IStateNodeService from)
         {
             IsTransition = true;
-            ServiceLocator.Register<IAnyParameter>(new AnyParameter());
         }
 
         public void OnExit(IStateNodeService to)

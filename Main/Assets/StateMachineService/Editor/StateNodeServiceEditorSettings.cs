@@ -6,8 +6,8 @@ using System.IO;
 using UnityEditor.Callbacks;
 using System;
 using System.Reflection;
-using StateMachineService.StateMachine.Parameter;
 using System.Text.RegularExpressions;
+using StateMachineService.StateNode;
 
 namespace StateMachineService.Editor
 {
@@ -112,7 +112,7 @@ namespace StateMachineService.Editor
 
             public List<string> StateNames;
 
-            public StateMachineParameterSettings STMSettings;
+            public StateNodeSettings Settings;
         }
 
         public FileCreateServiceCommand ThisCommand;
@@ -131,16 +131,15 @@ namespace StateMachineService.Editor
 
                     var prefab = PrefabUtility.SaveAsPrefabAsset(game, prefabCommand.FilePath + "/" + stateName + "State.prefab");
 
-                    if (prefabCommand.STMSettings != null)
+                    if (prefabCommand.Settings != null)
                     {
-                        if(prefabCommand.STMSettings.StateNodesGameObject == null)
-                            prefabCommand.STMSettings.SetStateNodesGameObject(new List<GameObject>());
+                        if(prefabCommand.Settings.StateNodesGameObject == null)
+                            prefabCommand.Settings.SetStateNodesGameObject(new List<GameObject>());
 
-                        prefabCommand.STMSettings.StateNodesGameObject.Add(prefab);
-                        EditorUtility.SetDirty(prefabCommand.STMSettings);
+                        prefabCommand.Settings.StateNodesGameObject.Add(prefab);
+                        EditorUtility.SetDirty(prefabCommand.Settings);
                         AssetDatabase.SaveAssets();
                     }
-
 
                     UnityEngine.Object.DestroyImmediate(game);
                     AssetDatabase.SaveAssets();

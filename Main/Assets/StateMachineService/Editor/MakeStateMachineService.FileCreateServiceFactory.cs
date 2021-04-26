@@ -31,7 +31,8 @@ namespace StateMachineService.Editor
                         ThisCommand = new StateMachineServiceScriptCreateService.Command()
                         {
                             FilePath = stateMachineEditor.ScriptPath,
-                            ScriptTemp = stateMachineEditor.ScriptTemp,
+                            STMScriptTemp = stateMachineEditor.STMScriptTemp,
+                            InstallerScriptTemp = stateMachineEditor.InstallerScriptTemp,
                             ServiceName = stateMachineEditor.ServiceName,
                             FirstStateGameObject = stateMachineEditor.FirstStateGameObject
                         }
@@ -55,7 +56,7 @@ namespace StateMachineService.Editor
                         ThisCommand = new StateNodeServicePrefabCreateService.Command()
                         {
                             FilePath = stateNodeEditor.PrefabPath,
-                            STMSettings = this.STMSettings,
+                            Settings = this.Settings,
                             StateNames = stateNodeEditor.StateNames
                         }
                     };
@@ -68,9 +69,10 @@ namespace StateMachineService.Editor
                         ThisCommand = new StateMachineServicePrefabCreateService.Command()
                         {
                             FilePath = stateMachineEditor.PrefabPath,
-                            STMSettings = this.STMSettings,
+                            Settings = Settings,
                             ServiceName = stateMachineEditor.ServiceName,
-                            FirstStateGameObject = stateMachineEditor.FirstStateGameObject
+                            FirstStateGameObject = stateMachineEditor.FirstStateGameObject,
+                            prefabInstallSettings = stateMachineEditor.prefabInstallSettings
                         }
                     };
                     break;                    
