@@ -56,7 +56,7 @@ namespace StateMachineService.Editor
                         ThisCommand = new StateNodeServicePrefabCreateService.Command()
                         {
                             FilePath = stateNodeEditor.PrefabPath,
-                            //STMSettings = this.STMSettings,
+                            Settings = this.Settings,
                             StateNames = stateNodeEditor.StateNames
                         }
                     };
@@ -71,7 +71,8 @@ namespace StateMachineService.Editor
                             FilePath = stateMachineEditor.PrefabPath,
                             Settings = Settings,
                             ServiceName = stateMachineEditor.ServiceName,
-                            FirstStateGameObject = stateMachineEditor.FirstStateGameObject
+                            FirstStateGameObject = stateMachineEditor.FirstStateGameObject,
+                            prefabInstallSettings = stateMachineEditor.prefabInstallSettings
                         }
                     };
                     break;                    

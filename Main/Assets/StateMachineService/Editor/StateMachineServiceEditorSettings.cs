@@ -29,6 +29,8 @@ namespace StateMachineService.Editor
 
         public GameObject FirstStateGameObject;
 
+        public PrefabInstallSettings prefabInstallSettings;
+
         public void Handle(GUIStyle style)
         {
             EditorGUILayout.LabelField("3. スクリプト名を入力する(Namespace名にも使われます(入力名.StateMachine))", style);
@@ -42,6 +44,9 @@ namespace StateMachineService.Editor
 
             EditorGUILayout.LabelField("6. 一番最初に遷移するStateを選択する", style);
             FirstStateGameObject = EditorGUILayout.ObjectField("First State", FirstStateGameObject, typeof(GameObject), true) as GameObject;
+
+            EditorGUILayout.LabelField("7. Prefab Install Settingsを選択する", style);
+            prefabInstallSettings = EditorGUILayout.ObjectField("Prefab Intall Settings", prefabInstallSettings, typeof(PrefabInstallSettings), true) as PrefabInstallSettings;            
 
             GUI.backgroundColor = Color.green;
             OnGUI_SelectScirptPath(style);
@@ -116,6 +121,8 @@ namespace StateMachineService.Editor
             public StateNodeSettings Settings;
 
             public GameObject FirstStateGameObject;
+
+            public PrefabInstallSettings prefabInstallSettings;            
         }
 
         public FileCreateServiceCommand ThisCommand;
@@ -135,15 +142,16 @@ namespace StateMachineService.Editor
                 prefabCommand.Settings.SetFirstStateNodeGameObject(prefabCommand.FirstStateGameObject);
 
                 var nodeList = game.GetComponent<StateNodeList>();
-                var intaller = game.GetComponent<Installer>();
+                var installer = game.GetComponent<Installer>();
                 var stm = game.GetComponent<PaupawsanStateMachine>();
 
                 nodeList.SetStateNodeSettings(prefabCommand.Settings);
-                UnityEventTools.AddObjectPersistentListener(intaller.m_onInstalled,new UnityAction<GameObject>(nodeList.Initialize),game);                
-                UnityEventTools.AddObjectPersistentListener(intaller.m_onInstalled,new UnityAction<GameObject>(stm.Initialize),game);
+                installer.m_prefabSettings = prefabCommand.prefabInstallSettings;
+                UnityEventTools.AddObjectPersistentListener(installer.m_onInstalled,new UnityAction<GameObject>(nodeList.Initialize),game);                
+                UnityEventTools.AddObjectPersistentListener(installer.m_onInstalled,new UnityAction<GameObject>(stm.Initialize),game);
 
-                intaller.m_autoInstallHierarchyObject.Add(game);
-                intaller.m_PrefabRoot = game.transform.GetChild(1);
+                installer.m_autoInstallHierarchyObject.Add(game);
+                installer.m_PrefabRoot = game.transform.GetChild(1);
 
                 EditorUtility.SetDirty(prefabCommand.Settings);
                 PrefabUtility.SaveAsPrefabAsset(game, prefabCommand.FilePath + "/" + prefabCommand.ServiceName + "StateMachine.prefab");

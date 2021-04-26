@@ -13,7 +13,7 @@ namespace StateMachineService.Locator
 
         public UnityEngine.Events.UnityEvent m_onInstalled = new UnityEngine.Events.UnityEvent();
 
-        public PrefabInstallSettings m_prefabSettins;
+        public PrefabInstallSettings m_prefabSettings;
 
         public Transform m_PrefabRoot;
 
@@ -28,10 +28,10 @@ namespace StateMachineService.Locator
 
         protected virtual void Install_FromPrefabObject()
         {
-            if(m_prefabSettins == null)
+            if(m_prefabSettings == null)
                 return;
 
-            foreach (GameObject prefab in m_prefabSettins.IntallTargetPrefabs)
+            foreach (GameObject prefab in m_prefabSettings.IntallTargetPrefabs)
             {
                 var target = Instantiate(prefab,m_PrefabRoot);
                 var attributes = Get_AutoRegistOnPrefabScriptAttribute_FromGameObject(target);
