@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using StateMachineService.Locator;
 
-[AutoRegistOnPrefabScript(typeof(Pattern3))]
+[AutoInstallAttribute(typeof(Pattern3))]
 public class Pattern3 : MonoBehaviour
 {
     public void Print()

@@ -6,7 +6,7 @@ using StateMachineService.Locator;
 
 namespace StateMachineService.StateNode
 {
-    [AutoRegistOnPrefabScript(typeof(IStateNodeList))]
+    [AutoInstallAttribute(typeof(IStateNodeList))]
     public class StateNodeList : MonoBehaviour, IStateNodeList
     {
         public List<IStateNodeService> StateNodes { get => stateNodes; }

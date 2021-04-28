@@ -13,7 +13,7 @@ namespace StateMachineService.Locator
 
         public UnityEngine.Events.UnityEvent m_onInstalled = new UnityEngine.Events.UnityEvent();
 
-        public PrefabInstallSettings m_prefabSettings;
+        public AutoInstallPrefabSettings m_prefabSettings;
 
         public Transform m_PrefabRoot;
 
@@ -53,17 +53,17 @@ namespace StateMachineService.Locator
             }
         }
 
-        protected IEnumerable<AutoRegistOnPrefabScriptAttribute> Get_AutoRegistOnPrefabScriptAttribute_FromGameObject(GameObject target)
+        protected IEnumerable<AutoInstallAttribute> Get_AutoRegistOnPrefabScriptAttribute_FromGameObject(GameObject target)
         {
             var targetScripts = target.GetComponents<MonoBehaviour>().Select(mono => mono.GetType());
             var attributes = targetScripts
-                    .Where(scirpt => scirpt.GetCustomAttributes(typeof(AutoRegistOnPrefabScriptAttribute), false).Any())
-                    .Select(scirpt => (scirpt.GetCustomAttributes(typeof(AutoRegistOnPrefabScriptAttribute), false).OfType<AutoRegistOnPrefabScriptAttribute>().First()));
+                    .Where(scirpt => scirpt.GetCustomAttributes(typeof(AutoInstallAttribute), false).Any())
+                    .Select(scirpt => (scirpt.GetCustomAttributes(typeof(AutoInstallAttribute), false).OfType<AutoInstallAttribute>().First()));
 
             return attributes;
         }
 
-        protected void Regist_ServiceLocator_FromGameObjectAndAttribute(GameObject target, IEnumerable<AutoRegistOnPrefabScriptAttribute> attributes)
+        protected void Regist_ServiceLocator_FromGameObjectAndAttribute(GameObject target, IEnumerable<AutoInstallAttribute> attributes)
         {
             attributes.ToList().ForEach(
                 attribute =>

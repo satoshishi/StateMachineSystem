@@ -8,7 +8,7 @@ public interface IPattern2
     void Print();
 }
 
-[AutoRegistOnPrefabScript(typeof(IPattern2))]
+[AutoInstallAttribute(typeof(IPattern2))]
 public class Pattern2 : MonoBehaviour,IPattern2
 {
     public void Print()

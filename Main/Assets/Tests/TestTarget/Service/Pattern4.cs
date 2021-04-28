@@ -4,7 +4,7 @@ using UnityEngine;
 using StateMachineService.Locator;
 
 
-[AutoRegistOnPrefabScript(typeof(Pattern4))]
+[AutoInstallAttribute(typeof(Pattern4))]
 public class Pattern4 : MonoBehaviour
 {
     public void Print()
