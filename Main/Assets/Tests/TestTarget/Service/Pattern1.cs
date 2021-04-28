@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using StateMachineService.Locator;
 
-[AutoRegistOnPrefabScript(typeof(Pattern1))]
+[AutoInstallAttribute(typeof(Pattern1))]
 public class Pattern1 : MonoBehaviour
 {
     [SerializeField]

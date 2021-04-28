@@ -29,7 +29,7 @@ namespace StateMachineService.Editor
 
         public GameObject FirstStateGameObject;
 
-        public PrefabInstallSettings prefabInstallSettings;
+        public AutoInstallPrefabSettings prefabInstallSettings;
 
         public void Handle(GUIStyle style)
         {
@@ -46,7 +46,7 @@ namespace StateMachineService.Editor
             FirstStateGameObject = EditorGUILayout.ObjectField("First State", FirstStateGameObject, typeof(GameObject), true) as GameObject;
 
             EditorGUILayout.LabelField("7. Prefab Install Settingsを選択する", style);
-            prefabInstallSettings = EditorGUILayout.ObjectField("Prefab Intall Settings", prefabInstallSettings, typeof(PrefabInstallSettings), true) as PrefabInstallSettings;            
+            prefabInstallSettings = EditorGUILayout.ObjectField("Prefab Intall Settings", prefabInstallSettings, typeof(AutoInstallPrefabSettings), true) as AutoInstallPrefabSettings;            
 
             GUI.backgroundColor = Color.green;
             OnGUI_SelectScirptPath(style);
@@ -122,7 +122,7 @@ namespace StateMachineService.Editor
 
             public GameObject FirstStateGameObject;
 
-            public PrefabInstallSettings prefabInstallSettings;            
+            public AutoInstallPrefabSettings prefabInstallSettings;            
         }
 
         public FileCreateServiceCommand ThisCommand;

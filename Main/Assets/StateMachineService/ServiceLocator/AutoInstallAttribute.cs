@@ -6,11 +6,11 @@ using UnityEngine;
 namespace StateMachineService.Locator
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
-    public class AutoRegistOnPrefabScriptAttribute : Attribute
+    public class AutoInstallAttribute : Attribute
     {
         public Type RegistTargetType;
 
-        public AutoRegistOnPrefabScriptAttribute(Type registTargetType)
+        public AutoInstallAttribute(Type registTargetType)
         {
             RegistTargetType = registTargetType;
         }

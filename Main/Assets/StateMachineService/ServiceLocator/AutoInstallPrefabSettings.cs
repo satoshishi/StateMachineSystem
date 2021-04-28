@@ -6,7 +6,7 @@ namespace StateMachineService.Locator
 {
 
     [CreateAssetMenu(menuName = "StateMachineService/PrefabInstallSettings")]
-    public class PrefabInstallSettings : ScriptableObject
+    public class AutoInstallPrefabSettings : ScriptableObject
     {
         [SerializeField]
         private List<GameObject> intallTargetPrefabs;
