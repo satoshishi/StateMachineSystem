@@ -69,9 +69,13 @@ namespace Paupawsan
         /// 遷移して欲しい次のstateを設定
         /// </summary>
         /// <param name="nextStateType"></param>
-        public void MoveState(T nextStateType)
+        public bool TryMoveState(T nextStateType)
         {
+            if(isPlayingMoveState)
+                return false;
+
             m_nextState = nextStateType;
+            return true;
         }
 
         /// <summary>
@@ -111,6 +115,7 @@ namespace Paupawsan
             }
         }
 
+        private bool isPlayingMoveState = false;
         public IEnumerator StartStateMachine(T nextState)
         {
             m_nextState = nextState;
@@ -118,30 +123,34 @@ namespace Paupawsan
             if (m_curState == null)
             {
                 m_curState = m_nextState;
-                //Enter
+
+                isPlayingMoveState = true;
                 yield return GetStateNode(m_nextState).StateNode.StateEnter();
+                isPlayingMoveState = false;
             }
 
             while (!m_isShuttingDown)
             {
                 if (!m_curState.Equals(m_nextState))
                 {
+                    isPlayingMoveState = true;
+
                     //Exit
                     yield return GetStateNode(m_curState).StateNode.StateExit();
 
                     m_prevState = m_curState;
                     m_curState = m_nextState;
 
+                    isPlayingMoveState = false;                    
+
                     //Enter
-                    yield return GetStateNode(m_nextState).StateNode.StateEnter();
+                    yield return GetStateNode(m_curState).StateNode.StateEnter();
                 }
                 else
                 {
                     //Update
                     yield return GetStateNode(m_curState).StateNode.StateUpdate();
                 }
-
-                yield return null;
             }
              yield return GetStateNode(m_curState).StateNode.StateExit();
         }

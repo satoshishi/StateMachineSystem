@@ -46,6 +46,8 @@ namespace StateMachineService.StateMachine.Paupawsan
             if (stateNode == null)
                 yield break;
 
+            yield return null;                
+
             switch (stateStatus)
             {
                 case eStateNodeStatus.StateInitialize:
@@ -72,8 +74,6 @@ namespace StateMachineService.StateMachine.Paupawsan
                 case eStateNodeStatus.StateFinalize:
                     break;
             }
-
-            yield return null;
         }
 
         public virtual void UpdateState<NODE_TYPE>() where NODE_TYPE : IStateNodeService
@@ -82,11 +82,13 @@ namespace StateMachineService.StateMachine.Paupawsan
 
             if (stateNode != null)
             {
+                bool isSuccess = STMCore.TryMoveState(stateNode);                
 
-                PreviousState = CurrentState;
-                CurrentState = stateNode;
-
-                STMCore.MoveState(stateNode);
+                if(isSuccess)
+                {
+                    PreviousState = CurrentState;
+                    CurrentState = stateNode;
+                }
             }
         }
 
@@ -96,11 +98,13 @@ namespace StateMachineService.StateMachine.Paupawsan
 
             if (stateNode != null)
             {
+                bool isSuccess = STMCore.TryMoveState(stateNode);                
 
-                PreviousState = CurrentState;
-                CurrentState = stateNode;
-
-                STMCore.MoveState(stateNode);
+                if(isSuccess)
+                {
+                    PreviousState = CurrentState;
+                    CurrentState = stateNode;
+                }
             }
         }        
 
