@@ -13,7 +13,7 @@ namespace StateMachineService.StateMachine.Paupawsan
         public StateMachineCore<IStateNodeService> STMCore { get { return stateMachineCore; } }
         private StateMachineCore<IStateNodeService> stateMachineCore = null;
 
-        private IStateNodeList stateNodeList = null;
+        protected IStateNodeList stateNodeList = null;
 
         public IStateNodeService CurrentState { get; private set; } = null;
         public IStateNodeService PreviousState { get; private set; } = null;
@@ -21,13 +21,12 @@ namespace StateMachineService.StateMachine.Paupawsan
         public virtual void Initialize(GameObject obj)
         {
             stateNodeList = ServiceLocator.Get<IStateNodeList>();
+            ServiceLocator.Register<IStateMachineService>(this);
             InitializeStateMachineCore();
         }
 
         protected virtual void InitializeStateMachineCore()
         {
-            ServiceLocator.Register<IStateMachineService>(this);
-
             stateMachineCore = new StateMachineCore<IStateNodeService>(UpdateStateNodeStatus, false);
             stateNodeList.StateNodes.ForEach(node => stateMachineCore.RegisterStateNode(node, new StateNodeCore<IStateNodeService>(node, stateMachineCore)));
 
@@ -46,7 +45,8 @@ namespace StateMachineService.StateMachine.Paupawsan
             if (stateNode == null)
                 yield break;
 
-            yield return null;                
+            if(stateStatus != eStateNodeStatus.StateInitialize)
+                yield return null;                
 
             switch (stateStatus)
             {
